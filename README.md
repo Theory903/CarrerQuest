@@ -22,7 +22,7 @@ CareerQuest is an innovative, AI-driven web application that helps students navi
 CareerQuest/
 │
 │
-├── ML/                           # Machine Learning-related files
+├── ML/                            # Machine Learning-related files
 │   ├── models/                   # Pre-trained and custom models
 │   ├── data/                     # Datasets for training and testing
 │   ├── notebooks/                # Jupyter notebooks for prototyping ML models
@@ -32,15 +32,15 @@ CareerQuest/
 │   └── requirements.txt          # Dependencies for ML environment
 │
 ├── Webapp/                       # Frontend and Backend code
-    ├── src/                  # React components and assets
-    ├── public/               # Public assets (HTML, images)
-    ├── server/                   # Backend code (Node.js, Express)
-          ├── controllers/          # API request controllers
-          ├── models/               # Database models (MongoDB)
-          ├── routes/               # API routes
-          ├── utils/                # Utility functions (e.g., for auth, validation)
-          └── server.js             # Entry point for backend
-    └── package.json              # Backend dependencies
+│   ├── src/                     # React components and assets
+│    ├── public/                 # Public assets (HTML, images)
+│    ├── server/                 # Backend code (Node.js, Express)
+│    │      ├── controllers/    # API request controllers
+│    │      ├── models/         # Database models (MongoDB)
+│    │      ├── routes/         # API routes
+│    │      ├── utils/          # Utility functions (e.g., for auth, validation)
+│    │      └── server.js       # Entry point for backend
+│    └── package.json            # Backend dependencies
 │
 ├── .gitignore                    # List of files/folders to ignore in Git
 ├── LICENSE                       # License file for the project (Apache-2.0)
@@ -48,8 +48,8 @@ CareerQuest/
 ├── CONTRIBUTING.md               # Guidelines for contributing to the project
 └── docs/                         # Documentation and resources
     ├── API.md                    # API documentation
-    ├── ML_documentation.md        # Machine Learning model details
-    └── usage_instructions.md      # User guide for the web app
+    ├── ML_documentation.md       # Machine Learning model details
+    └── usage_instructions.md     # User guide for the web app
 ```
 
 ## Installation

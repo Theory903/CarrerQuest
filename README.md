@@ -1,6 +1,8 @@
 # CareerQuest
 
-CareerQuest is an innovative, AI-driven web application that helps students navigate career choices by analyzing their skills, interests, and personality traits. Leveraging machine learning algorithms, interactive tools, and personalized recommendations, CareerQuest provides an all-in-one career guidance platform. The project is part of the **Smart India Hackathon 2024** under the **FeedMind** team.
+CareerQuest is an innovative, AI-driven web application that helps students navigate career choices by analyzing their skills, interests, and personality traits. Leveraging machine learning algorithms, interactive tools, and personalized recommendations, CareerQuest provides an all-in-one career guidance platform.
+
+The project is part of the **Smart India Hackathon 2024** under the **FeedMind** team.
 
 ## Features
 - **Career Assessment**: Interactive quizzes and mini-games to evaluate users' skills and interests.

@@ -31,15 +31,15 @@ CareerQuest/
 │   ├── prediction.py             # Prediction logic for the models
 │   └── requirements.txt          # Dependencies for ML environment
 │
-├── Webapp/                        # Frontend and Backend code
+├── Webapp/                       # Frontend and Backend code
 │    ├── src/                     # React components and assets
 │    ├── public/                  # Public assets (HTML, images)
 │    ├── server/                  # Backend code (Node.js, Express)
-│    │      ├── controllers/     # API request controllers
-│    │      ├── models/          # Database models (MongoDB)
-│    │      ├── routes/          # API routes
-│    │      ├── utils/           # Utility functions (e.g., for auth, validation)
-│    │      └── server.js        # Entry point for backend
+│    │      ├── controllers/      # API request controllers
+│    │      ├── models/           # Database models (MongoDB)
+│    │      ├── routes/           # API routes
+│    │      ├── utils/            # Utility functions (e.g., for auth, validation)
+│    │      └── server.js         # Entry point for backend
 │    └── package.json             # Backend dependencies
 │
 ├── .gitignore                    # List of files/folders to ignore in Git

@@ -32,7 +32,7 @@ CareerQuest/
 │   └── requirements.txt          # Dependencies for ML environment
 │
 ├── Webapp/                       # Frontend and Backend code
-│   ├── src/                     # React components and assets
+│    ├── src/                    # React components and assets
 │    ├── public/                 # Public assets (HTML, images)
 │    ├── server/                 # Backend code (Node.js, Express)
 │    │      ├── controllers/    # API request controllers

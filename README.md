@@ -22,7 +22,7 @@ CareerQuest is an innovative, AI-driven web application that helps students navi
 CareerQuest/
 │
 │
-├── ML/                            # Machine Learning-related files
+├── ML/                           # Machine Learning-related files
 │   ├── models/                   # Pre-trained and custom models
 │   ├── data/                     # Datasets for training and testing
 │   ├── notebooks/                # Jupyter notebooks for prototyping ML models

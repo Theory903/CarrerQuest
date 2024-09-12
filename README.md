@@ -29,6 +29,7 @@ CareerQuest/
 │   ├── data/                     # Datasets for training and testing
 │   ├── notebooks/                # Jupyter notebooks for prototyping ML models
 │   ├── scripts/                  # Python scripts for model training, evaluation
+│   ├── worker.py                 # RabbitMQ worker script for handling tasks
 │   ├── preprocessing.py          # Data preprocessing scripts
 │   ├── prediction.py             # Prediction logic for the models
 │   └── requirements.txt          # Dependencies for ML environment

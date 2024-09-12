@@ -21,7 +21,6 @@ CareerQuest is an innovative, AI-driven web application that helps students navi
 ```
 CareerQuest/
 │
-├── .zed/                         # Config files for IDE/editor settings
 │
 ├── ML/                           # Machine Learning-related files
 │   ├── models/                   # Pre-trained and custom models

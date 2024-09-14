@@ -121,7 +121,7 @@ npm run dev
 
 ## Contribution Guidelines
 
-We welcome contributions to improve CareerQuest. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to improve CareerQuest. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md%20) for detailed guidelines.
 
 ## License
 This project is licensed under the Apache-2.0 License. See the [LICENSE](./LICENSE) file for more information.

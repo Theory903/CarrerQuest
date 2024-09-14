@@ -1,7 +1,3 @@
-Here’s a **detailed guide** for beginners to understand how to create a new Git branch and start working on a project step-by-step. This guide assumes you have **Git** installed and have access to the project on **GitHub**.
-
----
-
 ## **Beginner's Guide: How to Create a Git Branch and Start Working on a Project**
 
 ### What is Git?

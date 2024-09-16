@@ -72,38 +72,67 @@ Here is the file structure for the project:
 
 ```plaintext
 CareerQuest/
+│── docs/
+│   ├── ML_documentation.md
+│   ├── Git_guide.md
+│   ├── RabbitMQ.md
+│   ├── UI.md
+│   ├── Usage_Instruction.md
+├── ML/
+│   ├── models/
+│   ├── data/
+│   ├── notebooks/
+│   ├── scripts/
+│   ├── worker.py
+│   ├── preprocessing.py
+│   ├── prediction.py
+│   └── requirements.txt
 │
+├── Webapp/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── fonts/
+│   │   │   ├── mentorships/
+│   │   │   ├── students/
+│   │   │   ├── favicon.ico
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   └── components/
+│   │       ├── Dashboard/
+│   │       │   ├── AcademicPerformanceLineChart.tsx
+│   │       │   ├── AcademicPerformanceStackedBarChart.tsx
+│   │       │   ├── CareerInterestRadar.tsx
+│   │       │   ├── CareerTree.tsx
+│   │       │   ├── GoalProgressTracker.tsx
+│   │       │   ├── ParticipationDonutChart.tsx
+│   │       │   ├── PersonalityRadarChart.tsx
+│   │       │   ├── ReflectionTimeline.tsx
+│   │       │   ├── SkillMatrix.tsx
+│   │       │   └── StrengthsWeaknessesBarChart.tsx
+│   │       ├── BadgeDisplay.tsx
+│   │       ├── CareerTree.tsx
+│   │       ├── CTAButton.tsx
+│   │       ├── Footer.tsx
+│   │       ├── HeroSection.tsx
+│   │       ├── Layout.tsx
+│   │       ├── Leaderboard.tsx
+│   │       ├── MentorCard.tsx
+│   │       ├── Navbar.tsx
+│   │       ├── QuizCard.tsx
+│   │       └── ResourceCard.tsx
+│   ├── public/
+│   └── server/
+│       ├── controllers/
+│       ├── models/
+│       ├── routes/
+│       ├── utils/
+│       └── server.js
 │
-├── ML/                           # Machine Learning-related files
-│   ├── models/                   # Pre-trained and custom models
-│   ├── data/                     # Datasets for training and testing
-│   ├── notebooks/                # Jupyter notebooks for prototyping ML models
-│   ├── scripts/                  # Python scripts for model training, evaluation
-│   ├── preprocessing.py          # Data preprocessing scripts
-│   ├── prediction.py             # Prediction logic for the models
-│   └── requirements.txt          # Dependencies for ML environment
-│
-├── Webapp/                       # Frontend and Backend code
-│   ├── client/                   # Frontend code (React)
-│   │   ├── src/                  # React components and assets
-│   │   ├── public/               # Public assets (HTML, images)
-│   │   └── package.json          # Frontend dependencies
-│   ├── server/                   # Backend code (Node.js, Express)
-│   │   ├── controllers/          # API request controllers
-│   │   ├── models/               # Database models (MongoDB)
-│   │   ├── routes/               # API routes
-│   │   ├── utils/                # Utility functions (e.g., for auth, validation)
-│   │   └── server.js             # Entry point for backend
-│   └── package.json              # Backend dependencies
-│
-├── .gitignore                    # List of files/folders to ignore in Git
-├── LICENSE                       # License file for the project (Apache-2.0)
-├── README.md                     # Project overview and documentation
-├── CONTRIBUTING.md               # Guidelines for contributing to the project
-└── docs/                         # Documentation and resources
-    ├── API.md                    # API documentation
-    ├── ML_documentation.md        # Machine Learning model details
-    └── usage_instructions.md      # User guide for the web app
+├── .gitignore
+├── LICENSE
+├── README.md
+└── CONTRIBUTING.md
 ```
 
 ---

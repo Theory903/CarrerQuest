@@ -23,9 +23,11 @@ The project is part of the **Smart India Hackathon 2024** under the **FeedMind**
 ```
 CareerQuest/
 │── docs/
-│  ├── API.md
 │   ├── ML_documentation.md
-│   └── usage_instructions.md
+│   ├── Git_guide.md
+│   ├── RabbitMQ.md
+│   ├── UI.md
+│   ├── Usage_Instruction.md
 ├── ML/
 │   ├── models/
 │   ├── data/

@@ -10,36 +10,67 @@ The CareerQuest project is divided into two main parts: the frontend and backend
 
 ```
 CareerQuest/
+│── docs/
+│   ├── ML_documentation.md
+│   ├── Git_guide.md
+│   ├── RabbitMQ.md
+│   ├── UI.md
+│   ├── Usage_Instruction.md
+├── ML/
+│   ├── models/
+│   ├── data/
+│   ├── notebooks/
+│   ├── scripts/
+│   ├── worker.py
+│   ├── preprocessing.py
+│   ├── prediction.py
+│   └── requirements.txt
 │
-├── ML/                           # Machine Learning-related files
-│   ├── models/                   # Pre-trained and custom models
-│   ├── data/                     # Datasets for training and testing
-│   ├── notebooks/                # Jupyter notebooks for prototyping ML models
-│   ├── scripts/                  # Python scripts for model training, evaluation
-│   ├── worker.py                 # RabbitMQ worker script for handling tasks
-│   ├── preprocessing.py          # Data preprocessing scripts
-│   ├── prediction.py             # Prediction logic for the models
-│   └── requirements.txt          # Dependencies for ML environment
+├── Webapp/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── fonts/
+│   │   │   ├── mentorships/
+│   │   │   ├── students/
+│   │   │   ├── favicon.ico
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   └── components/
+│   │       ├── Dashboard/
+│   │       │   ├── AcademicPerformanceLineChart.tsx
+│   │       │   ├── AcademicPerformanceStackedBarChart.tsx
+│   │       │   ├── CareerInterestRadar.tsx
+│   │       │   ├── CareerTree.tsx
+│   │       │   ├── GoalProgressTracker.tsx
+│   │       │   ├── ParticipationDonutChart.tsx
+│   │       │   ├── PersonalityRadarChart.tsx
+│   │       │   ├── ReflectionTimeline.tsx
+│   │       │   ├── SkillMatrix.tsx
+│   │       │   └── StrengthsWeaknessesBarChart.tsx
+│   │       ├── BadgeDisplay.tsx
+│   │       ├── CareerTree.tsx
+│   │       ├── CTAButton.tsx
+│   │       ├── Footer.tsx
+│   │       ├── HeroSection.tsx
+│   │       ├── Layout.tsx
+│   │       ├── Leaderboard.tsx
+│   │       ├── MentorCard.tsx
+│   │       ├── Navbar.tsx
+│   │       ├── QuizCard.tsx
+│   │       └── ResourceCard.tsx
+│   ├── public/
+│   └── server/
+│       ├── controllers/
+│       ├── models/
+│       ├── routes/
+│       ├── utils/
+│       └── server.js
 │
-├── Webapp/                       # Frontend and Backend code
-│    ├── src/                     # React components and assets
-│    ├── public/                  # Public assets (HTML, images)
-│    ├── server/                  # Backend code (Node.js, Express)
-│    │      ├── controllers/      # API request controllers
-│    │      ├── models/           # Database models (MongoDB)
-│    │      ├── routes/           # API routes
-│    │      ├── utils/            # Utility functions (e.g., for auth, validation)
-│    │      └── server.js         # Entry point for backend
-│    └── package.json             # Backend dependencies
-│
-├── .gitignore                    # List of files/folders to ignore in Git
-├── LICENSE                       # License file for the project (Apache-2.0)
-├── README.md                     # Project overview and documentation
-├── CONTRIBUTING.md               # Guidelines for contributing to the project
-└── docs/                         # Documentation and resources
-    ├── API.md                    # API documentation
-    ├── ML_documentation.md       # Machine Learning model details
-    └── usage_instructions.md     # User guide for the web app
+├── .gitignore
+├── LICENSE
+├── README.md
+└── CONTRIBUTING.md
 ```
 
 ## Adding Functionality

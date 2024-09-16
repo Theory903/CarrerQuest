@@ -1,16 +1,20 @@
-import React from "react";
-//import { Cover } from "@/components/ui/cover";
-import { RotateWords } from "@/components/ui/RotateWords";
+"use client";
 
-export default function CoverDemo() {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Dashboard from '../components/pages/dashboard';
+const App: React.FC = () => {
   return (
-    <div>
-      <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-tex">
-        <RotateWords
-          text="Glow"
-          words={["Hello", "Hola", "Bonjour", "Ciao", "Namaste", "Salut"]}
-        />
-      </h1>
-    </div>
+    <Router>
+      <div className="App">      
+        {/* Main content area for routing */}
+        <main className="App-main">
+          <Dashboard />
+        </main>
+      </div>
+    </Router>
   );
-}
+};
+
+export default App;

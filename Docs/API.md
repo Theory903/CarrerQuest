@@ -16,6 +16,7 @@ CareerQuest/
 │   ├── RabbitMQ.md
 │   ├── UI.md
 │   ├── Usage_Instruction.md
+│
 ├── ML/
 │   ├── models/
 │   ├── data/

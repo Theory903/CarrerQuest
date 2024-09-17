@@ -1,4 +1,6 @@
 // src/components/Navbar.tsx
+"use client"; // Ensure it's client-side
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 
@@ -12,9 +14,12 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-gray-800 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
+        {/* Logo */}
         <h1 className="text-3xl font-bold text-white">
           <Link href="/">CareerQuest</Link>
         </h1>
+
+        {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
           <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">
             Dashboard
@@ -29,6 +34,8 @@ const Navbar: React.FC = () => {
             Careers
           </Link>
         </div>
+
+        {/* Mobile Menu Toggle Button */}
         <div className="md:hidden">
           <button
             type="button"
@@ -42,6 +49,8 @@ const Navbar: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
         <Link href="/" className="block px-4 py-2 text-gray-300 hover:text-white">
           Dashboard

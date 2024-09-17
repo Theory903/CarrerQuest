@@ -1,15 +1,16 @@
+// src/app/page.tsx or src/pages/index.tsx
 "use client";
 import React from 'react';
-import StudentForm from '../../components/pages/StudentForm';
-const APP: React.FC = () => {
-  return (
-          <div className="App">      
-            {/* Main content area for routing */}
-            <main className="App-main">
-              <StudentForm />
-            </main>
-          </div>
+import StudentForm from '@/components/pages/StudentForm';
 
-      );
-    };
-export default APP;
+const Page: React.FC = () => {
+  return (
+    <div className="App">
+      <main className="App-main">
+        <StudentForm />
+      </main>
+    </div>
+  );
+};
+
+export default Page;

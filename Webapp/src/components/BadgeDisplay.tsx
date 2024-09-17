@@ -1,1 +1,0 @@
-// Badge Display Component

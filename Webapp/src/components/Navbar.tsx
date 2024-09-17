@@ -24,15 +24,15 @@ const Navbar: React.FC = () => {
           <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">
             Dashboard
           </Link>
-          <Link href="/students" className="text-gray-300 hover:text-white transition-colors duration-300">
-            Students
-          </Link>
           <Link href="/mentorships" className="text-gray-300 hover:text-white transition-colors duration-300">
             Mentorships
           </Link>
           <Link href="/careers" className="text-gray-300 hover:text-white transition-colors duration-300">
             Careers
           </Link>
+          <Link href="/mentor" className="text-gray-300 hover:text-white transition-colors duration-300">
+            AI Mentor
+          </Link> {/* New Mentor Section */}
         </div>
 
         {/* Mobile Menu Toggle Button */}
@@ -64,6 +64,9 @@ const Navbar: React.FC = () => {
         <Link href="/careers" className="block px-4 py-2 text-gray-300 hover:text-white">
           Careers
         </Link>
+        <Link href="/mentor" className="block px-4 py-2 text-gray-300 hover:text-white">
+          AI Mentor
+        </Link> {/* Mobile view for Mentor */}
       </div>
     </nav>
   );

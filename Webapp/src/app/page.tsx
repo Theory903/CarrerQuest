@@ -1,14 +1,25 @@
-// src/pages/index.tsx
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CareerInterestRadar from '@/components/Dashboard/CareerInterestRadar';
 import StrengthsWeaknessesBarChart from '@/components/Dashboard/StrengthsWeaknessesBarChart';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Home: React.FC = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if user has completed the student registration
+    const isRegistered = localStorage.getItem('isRegistered');
+    if (!isRegistered) {
+      // Redirect to student registration form
+      router.push('/students');
+    }
+  }, [router]);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Head>

@@ -1,1 +1,0 @@
-// Hero Section Component

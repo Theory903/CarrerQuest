@@ -1,16 +1,7 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent} from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import CareerInterestRadar from '../Dashboard/CareerInterestRadar';
-import StrengthsWeaknessesBarChart from '../Dashboard/StrengthsWeaknessesBarChart';
-import SkillMatrix from '../Dashboard/SkillMatrix';
-import AcademicPerformanceLineChart from '../Dashboard/AcademicPerformanceLineChart';
-import AcademicPerformanceStackedBarChart from '../Dashboard/AcademicPerformanceStackedBarChart';
-import ParticipationDonutChart from '../Dashboard/ParticipationDonutChart';
-import GoalProgressTracker from '../Dashboard/GoalProgressTracker';
-import CareerTree from '../Dashboard/CareerTree';
-import PersonalityRadarChart from '../Dashboard/PersonalityRadarChart';
-import ReflectionTimeline from '../Dashboard/ReflectionTimeline';
 
 interface FormData {
   name: string;
@@ -34,6 +25,8 @@ const StudentForm: React.FC = () => {
     careerAspirations: '',
     skills: '',
   });
+  
+  const router = useRouter(); // Initialize the router
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,7 +48,9 @@ const StudentForm: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log(formData);
-    // Additional actions can be added here, such as sending form data to a backend.
+
+    // Navigate to the dashboard
+    router.push('/dashboard');
   };
 
   return (
@@ -160,7 +155,7 @@ const StudentForm: React.FC = () => {
             Submit
           </button>
         </form>
-        </div>
+      </div>
       <Footer />
     </div>
   );

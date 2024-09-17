@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import GlobalNavbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatUI from "@/components/Chatbot";
@@ -27,20 +27,22 @@ const MyRuntimeProvider = ({ children }: { children: React.ReactNode }) => {
 
 // Main App component
 const App: React.FC = () => {
+  const router = useRouter();
+
   return (
     <div className="App min-h-screen flex flex-col">
-      <Router>
-        <GlobalNavbar />
-        <main className="App-main flex-grow container mx-auto p-100">
-          <Routes>
-            {/* Other routes */}
-            <Route path="/mentor" element={<MyRuntimeProvider><ChatUI /></MyRuntimeProvider>} />
-          </Routes>
-        </main>
-        <Footer />
-      </Router>
+      <GlobalNavbar />
+      <main className="App-main flex-grow container mx-auto p-100">
+        {router.pathname === '/mentor' && (
+          <MyRuntimeProvider>
+            <ChatUI />
+          </MyRuntimeProvider>
+        )}
+        {/* Add other conditions for different routes if needed */}
+      </main>
+      <Footer />
     </div>
   );
 };
 
-export default App;
+export default App;``

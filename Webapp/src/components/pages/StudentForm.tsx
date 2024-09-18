@@ -50,7 +50,7 @@ const StudentForm: React.FC = () => {
     console.log(formData);
 
     // Navigate to the dashboard
-    router.push('/dashboard');
+    router.push('/quiz');
   };
 
   return (

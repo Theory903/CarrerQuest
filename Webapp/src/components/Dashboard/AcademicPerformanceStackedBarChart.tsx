@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 interface GradeData {
   year: string;
@@ -17,23 +18,38 @@ const data: GradeData[] = [
   { year: 'Year 12', Mathematics: 90, Science: 95, English: 70, History: 60 },
 ];
 
+const chartColors = {
+  Mathematics: '#8884d8',
+  Science: '#82ca9d',
+  English: '#ffc658',
+  History: '#ff7300',
+};
+
 const AcademicPerformanceStackedBarChart: React.FC = () => {
   return (
-    <div className="bg-black p-4 rounded-lg shadow-md mt-6">
-      <h2 className="text-xl font-semibold mb-4">Yearly Grade Breakdown</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Mathematics" stackId="a" fill="#8884d8" />
-          <Bar dataKey="Science" stackId="a" fill="#82ca9d" />
-          <Bar dataKey="English" stackId="a" fill="#ffc658" />
-          <Bar dataKey="History" stackId="a" fill="#ff7300" />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <Card className="bg-gray-900 text-white">
+      <CardHeader>
+        <CardTitle className="text-2xl font-semibold">Yearly Grade Breakdown</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={data}>
+            <CartesianGrid stroke="#545454" />
+            <XAxis dataKey="year" tick={{ fill: '#e0e0e0' }} />
+            <YAxis domain={[0, 100]} tick={{ fill: '#e0e0e0' }} />
+            <Tooltip 
+              contentStyle={{ backgroundColor: '#1f2937', border: 'none' }} 
+              itemStyle={{ color: '#ffffff' }} 
+            />
+            <Legend />
+            <Bar dataKey="Mathematics" stackId="a" fill={chartColors.Mathematics} />
+            <Bar dataKey="Science" stackId="a" fill={chartColors.Science} />
+            <Bar dataKey="English" stackId="a" fill={chartColors.English} />
+            <Bar dataKey="History" stackId="a" fill={chartColors.History} />
+          </BarChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   );
 };
 

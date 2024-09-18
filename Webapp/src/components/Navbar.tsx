@@ -30,6 +30,9 @@ const Navbar: React.FC = () => {
           <Link href="/careers" className="text-gray-300 hover:text-white transition-colors duration-300">
             Careers
           </Link>
+          <Link href="/aimentor" className="text-gray-300 hover:text-white transition-colors duration-300">
+            AI Mentor
+          </Link>
          {/* New Mentor Section */}
         </div>
 

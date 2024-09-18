@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
           <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
             <CareerInterestRadar />
           </div>
-          <div className="bg-gray-800 p-2 rounded-lg shadow-lg">
+          <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
             <StrengthsWeaknessesBarChart />
           </div>
         </section>

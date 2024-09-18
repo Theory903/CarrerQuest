@@ -1,14 +1,21 @@
 "use client"
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Cell, LabelList } from 'recharts';
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
 
 interface SubjectData {
   subject: string;
   score: number;
   type: 'strength' | 'weakness';
+}
+
+interface CustomTooltipProps {
+  active: boolean;
+  payload: {
+    payload: SubjectData;
+  }[];
 }
 
 const initialData: SubjectData[] = [
@@ -18,8 +25,8 @@ const initialData: SubjectData[] = [
   { subject: 'Social Studies', score: 70, type: 'weakness' },
   { subject: 'Physical Education', score: 85, type: 'strength' },
 ];
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomTooltip: React.FC<any> = ({ active, payload }) => {
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -33,7 +40,7 @@ const CustomTooltip: React.FC<any> = ({ active, payload }) => {
   return null;
 };
 
-const SortSelect: React.FC<{ sortBy: string; onSortChange: (value: 'score' | 'alphabetical') => void }> = ({ sortBy, onSortChange }) => (
+const SortSelect: React.FC<{ sortBy: 'score' | 'alphabetical'; onSortChange: (value: 'score' | 'alphabetical') => void }> = ({ sortBy, onSortChange }) => (
   <Select onValueChange={onSortChange} value={sortBy}>
     <SelectTrigger className="w-[180px] bg-gray-700 text-white border-gray-600">
       <SelectValue placeholder="Sort by" />
@@ -98,7 +105,7 @@ const StrengthsWeaknessesDashboard: React.FC = () => {
         <CardTitle className="text-2xl font-bold mb-4">Strengths and Weaknesses</CardTitle>
         <div className="flex justify-between items-center">
           <p className="text-sm text-gray-300">
-            Click on 'Sort by' to change the order.
+            Click on &apos;Sort by&apos; to change the order.
           </p>
           <SortSelect sortBy={sortBy} onSortChange={sortData} />
         </div>

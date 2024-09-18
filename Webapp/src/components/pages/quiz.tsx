@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 interface Question {
   id: number;
@@ -13,61 +14,61 @@ interface Question {
 }
 
 const questions: Question[] = [
-    {
-        id: 1,
-        text: "How do you typically approach problem-solving?",
-        options: ["Analytically", "Creatively", "Collaboratively", "Intuitively"]
-      },
-      {
-        id: 2,
-        text: "In a group project, which role do you prefer?",
-        options: ["Leader", "Researcher", "Presenter", "Organizer"]
-      },
-      {
-        id: 3,
-        text: "How do you prefer to learn new information?",
-        options: ["Reading", "Listening", "Hands-on practice", "Visual aids"]
-      },
-      {
-        id: 4,
-        text: "What type of work environment do you thrive in?",
-        options: ["Quiet and structured", "Dynamic and collaborative", "Flexible and independent", "Competitive and fast-paced"]
-      },
-      {
-        id: 5,
-        text: "How do you handle stress?",
-        options: ["Exercise", "Meditation", "Talking to friends", "Organizing and planning"]
-      },
-      {
-        id: 6,
-        text: "What motivates you the most?",
-        options: ["Financial rewards", "Personal growth", "Recognition", "Making a difference"]
-      },
-      {
-        id: 7,
-        text: "How do you prefer to communicate?",
-        options: ["In-person conversations", "Written messages", "Phone calls", "Video chats"]
-      },
-      {
-        id: 8,
-        text: "What's your preferred way of expressing creativity?",
-        options: ["Writing", "Visual arts", "Music", "Problem-solving"]
-      },
-      {
-        id: 9,
-        text: "How do you approach decision-making?",
-        options: ["Logically", "Emotionally", "Instinctively", "Collaboratively"]
-      },
-      {
-        id: 10,
-        text: "What's your ideal work-life balance?",
-        options: ["Strict separation", "Flexible integration", "Work-focused", "Life-focused"]
-      }
+  {
+    id: 1,
+    text: "How do you typically approach problem-solving?",
+    options: ["Analytically", "Creatively", "Collaboratively", "Intuitively"]
+  },
+  {
+    id: 2,
+    text: "In a group project, which role do you prefer?",
+    options: ["Leader", "Researcher", "Presenter", "Organizer"]
+  },
+  {
+    id: 3,
+    text: "How do you prefer to learn new information?",
+    options: ["Reading", "Listening", "Hands-on practice", "Visual aids"]
+  },
+  {
+    id: 4,
+    text: "What type of work environment do you thrive in?",
+    options: ["Quiet and structured", "Dynamic and collaborative", "Flexible and independent", "Competitive and fast-paced"]
+  },
+  {
+    id: 5,
+    text: "How do you handle stress?",
+    options: ["Exercise", "Meditation", "Talking to friends", "Organizing and planning"]
+  },
+  {
+    id: 6,
+    text: "What motivates you the most?",
+    options: ["Financial rewards", "Personal growth", "Recognition", "Making a difference"]
+  },
+  {
+    id: 7,
+    text: "How do you prefer to communicate?",
+    options: ["In-person conversations", "Written messages", "Phone calls", "Video chats"]
+  },
+  {
+    id: 8,
+    text: "What's your preferred way of expressing creativity?",
+    options: ["Writing", "Visual arts", "Music", "Problem-solving"]
+  },
+  {
+    id: 9,
+    text: "How do you approach decision-making?",
+    options: ["Logically", "Emotionally", "Instinctively", "Collaboratively"]
+  },
+  {
+    id: 10,
+    text: "What's your ideal work-life balance?",
+    options: ["Strict separation", "Flexible integration", "Work-focused", "Life-focused"]
+  }
 ];
 
 const PersonalityQuiz: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<{[key: number]: string}>({});
+  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const router = useRouter();
@@ -78,7 +79,7 @@ const PersonalityQuiz: React.FC = () => {
 
   const handleSubmit = () => {
     if (selectedAnswer) {
-      setAnswers({...answers, [currentQuestion]: selectedAnswer});
+      setAnswers({ ...answers, [currentQuestion]: selectedAnswer });
       setSelectedAnswer(null);
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
@@ -96,8 +97,6 @@ const PersonalityQuiz: React.FC = () => {
   };
 
   const moveToDashboard = () => {
-    // Here you would typically save the quiz results to your backend
-    // before navigating to the dashboard
     router.push('/dashboard');
   };
 
@@ -118,8 +117,15 @@ const PersonalityQuiz: React.FC = () => {
       <main className="container mx-auto p-8">
         <div className="bg-gray-800 p-8 rounded-lg shadow-md">
           {!quizCompleted ? (
-            <>
-              <h2 className="text-3xl font-bold mb-6">Question {currentQuestion + 1} of {questions.length}</h2>
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-3xl font-bold mb-6">
+                Question {currentQuestion + 1} of {questions.length}
+              </h2>
               <p className="text-xl mb-8">{questions[currentQuestion].text}</p>
               <div className="space-y-4 mb-8">
                 {questions[currentQuestion].options.map((option, index) => (
@@ -143,11 +149,18 @@ const PersonalityQuiz: React.FC = () => {
               >
                 {currentQuestion < questions.length - 1 ? 'Next Question' : 'Submit Quiz'}
               </button>
-            </>
+            </motion.div>
           ) : (
-            <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
               <h2 className="text-3xl font-bold mb-6">Quiz Completed!</h2>
-              <p className="text-xl mb-8">Thank you for completing the personality check. Your results have been analyzed to provide career recommendations.</p>
+              <p className="text-xl mb-8">
+                Thank you for completing the personality check. Your results have been analyzed to provide career recommendations.
+              </p>
               <div className="space-y-4">
                 <button
                   onClick={moveToDashboard}
@@ -162,7 +175,7 @@ const PersonalityQuiz: React.FC = () => {
                   Retake Quiz
                 </button>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
       </main>

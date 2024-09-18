@@ -1,73 +1,68 @@
-// src/components/Navbar.tsx
-"use client"; // Ensure it's client-side
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+
+const navItems = [
+  { href: '/', label: 'Dashboard' },
+  { href: '/mentorships', label: 'Mentorships' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/aimentor', label: 'AI Mentor' },
+];
 
 const Navbar: React.FC = () => {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen);
-  };
-
   return (
     <nav className="bg-gray-800 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <h1 className="text-3xl font-bold text-white">
-          <Link href="/">CareerQuest</Link>
-        </h1>
+        <Link href="/" className="text-3xl font-bold text-white">
+          CareerQuest
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
-          <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-300">
-            Dashboard
-          </Link>
-          <Link href="/mentorships" className="text-gray-300 hover:text-white transition-colors duration-300">
-            Mentorships
-          </Link>
-          <Link href="/careers" className="text-gray-300 hover:text-white transition-colors duration-300">
-            Careers
-          </Link>
-          <Link href="/aimentor" className="text-gray-300 hover:text-white transition-colors duration-300">
-            AI Mentor
-          </Link>
-         {/* New Mentor Section */}
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-gray-300 hover:text-white transition-colors duration-300"
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Mobile Menu Toggle Button */}
-        <div className="md:hidden">
-          <button
-            type="button"
-            className="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="Toggle menu"
-            onClick={toggleMobileMenu}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-        <Link href="/" className="block px-4 py-2 text-gray-300 hover:text-white">
-          Dashboard
-        </Link>
-        <Link href="/students" className="block px-4 py-2 text-gray-300 hover:text-white">
-          Students
-        </Link>
-        <Link href="/mentorships" className="block px-4 py-2 text-gray-300 hover:text-white">
-          Mentorships
-        </Link>
-        <Link href="/careers" className="block px-4 py-2 text-gray-300 hover:text-white">
-          Careers
-        </Link>
-        <Link href="/mentor" className="block px-4 py-2 text-gray-300 hover:text-white">
-          AI Mentor
-        </Link> {/* Mobile view for Mentor */}
+        {/* Mobile Menu */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden text-gray-300 hover:text-white">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetHeader>
+              <SheetTitle className="text-2xl font-bold">Menu</SheetTitle>
+            </SheetHeader>
+            <div className="flex flex-col space-y-4 mt-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-gray-700 hover:text-gray-900 transition-colors duration-300"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );

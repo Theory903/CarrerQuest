@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from 'react';
 import { FaCaretDown, FaCaretRight } from 'react-icons/fa'; // For icons
 import { Tooltip } from 'react-tooltip'; // For tooltips
@@ -67,7 +66,6 @@ const CareerTree: React.FC = () => {
                 <Tooltip
                   content={node.description}
                   className="ml-2 text-sm text-gray-400"
-                  placement="right"
                 >
                   <span className="text-gray-400">(i)</span>
                 </Tooltip>
@@ -88,7 +86,6 @@ const CareerTree: React.FC = () => {
                       <Tooltip
                         content={child.description}
                         className="ml-2 text-xs text-gray-400"
-                        placement="right"
                       >
                         <span className="text-gray-400">(i)</span>
                       </Tooltip>

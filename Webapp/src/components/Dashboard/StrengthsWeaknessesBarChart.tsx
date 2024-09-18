@@ -12,10 +12,8 @@ interface SubjectData {
 }
 
 interface CustomTooltipProps {
-  active: boolean;
-  payload: {
-    payload: SubjectData;
-  }[];
+  active?: boolean;  // Made optional
+  payload?: { payload: SubjectData }[];  // Made optional
 }
 
 const initialData: SubjectData[] = [
@@ -27,13 +25,13 @@ const initialData: SubjectData[] = [
 ];
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
+  if (active && payload && payload.length && payload[0].payload) {
+    const { subject, score, type } = payload[0].payload;
     return (
       <div className="bg-gray-800 border border-gray-700 text-white p-2 rounded shadow-md">
-        <p className="font-bold">{data.subject}</p>
-        <p>Score: {data.score}</p>
-        <p className="capitalize">Type: {data.type}</p>
+        <p className="font-bold">{subject}</p>
+        <p>Score: {score}</p>
+        <p className="capitalize">Type: {type}</p>
       </div>
     );
   }
@@ -83,13 +81,7 @@ const StrengthsWeaknessesDashboard: React.FC = () => {
   const [sortBy, setSortBy] = useState<'score' | 'alphabetical'>('score');
 
   const sortData = (method: 'score' | 'alphabetical') => {
-    const sortedData = [...data].sort((a, b) => {
-      if (method === 'score') {
-        return b.score - a.score;
-      } else {
-        return a.subject.localeCompare(b.subject);
-      }
-    });
+    const sortedData = [...data].sort((a, b) => method === 'score' ? b.score - a.score : a.subject.localeCompare(b.subject));
     setData(sortedData);
     setSortBy(method);
   };
@@ -104,9 +96,7 @@ const StrengthsWeaknessesDashboard: React.FC = () => {
       <CardHeader>
         <CardTitle className="text-2xl font-bold mb-4">Strengths and Weaknesses</CardTitle>
         <div className="flex justify-between items-center">
-          <p className="text-sm text-gray-300">
-            Click on &apos;Sort by&apos; to change the order.
-          </p>
+          <p className="text-sm text-gray-300">Click on &apos;Sort by&apos; to change the order.</p>
           <SortSelect sortBy={sortBy} onSortChange={sortData} />
         </div>
       </CardHeader>

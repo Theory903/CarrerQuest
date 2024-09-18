@@ -6,7 +6,9 @@ const AIChatBotInterface = () => {
     { text: "Hello! I'm your AI assistant. How can I help you today?", sender: 'ai' }
   ]);
   const [input, setInput] = useState('');
-  const messagesEndRef = useRef(null);
+  
+  // Add HTMLDivElement type to messagesEndRef
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

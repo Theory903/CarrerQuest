@@ -10,7 +10,13 @@ import StrengthsWeaknessesBarChart from '@/components/Dashboard/StrengthsWeaknes
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
-const FeatureCard = ({ icon: Icon, title, description }) => (
+interface FeatureCardProps {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  title: string;
+  description: string;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => (
   <Card className="bg-gray-800 border-gray-700">
     <CardHeader>
       <Icon className="w-10 h-10 mb-2 text-blue-500" aria-hidden="true" />
@@ -30,9 +36,9 @@ const initialInterestData = [
   { category: 'Healthcare', score: 65, fullMark: 100 },
 ];
 
-const Home = () => {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleDataChange = (newData:any) => {
+const Home: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDataChange = (newData: any) => {
     console.log('Interest data updated:', newData);
     // You can update your app's state or perform other actions here
   };
@@ -51,9 +57,13 @@ const Home = () => {
 
       <header className="text-center py-20 bg-gray-800">
         <h1 className="text-5xl font-bold mb-4">Discover Your Path with CareerQuest</h1>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">Unlock your potential and navigate your career journey with personalized insights and expert guidance.</p>
+        <p className="text-xl mb-8 max-w-2xl mx-auto">
+          Unlock your potential and navigate your career journey with personalized insights and expert guidance.
+        </p>
         <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
-          <Link href="/students" aria-label="Start your career quest">Start Your Quest</Link>
+          <Link href="/students" aria-label="Start your career quest">
+            Start Your Quest
+          </Link>
         </Button>
       </header>
 
@@ -85,7 +95,9 @@ const Home = () => {
             <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-white text-2xl font-bold">Career Interest Radar</CardTitle>
-                <CardDescription className="text-gray-300">Visualize how your interests align with various career paths.</CardDescription>
+                <CardDescription className="text-gray-300">
+                  Visualize how your interests align with various career paths.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <CareerInterestRadar
@@ -104,7 +116,9 @@ const Home = () => {
             <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-white text-2xl font-bold">Strengths & Weaknesses Analysis</CardTitle>
-                <CardDescription className="text-gray-300">Gain insights into your professional strengths and areas for improvement.</CardDescription>
+                <CardDescription className="text-gray-300">
+                  Gain insights into your professional strengths and areas for improvement.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <StrengthsWeaknessesBarChart />
@@ -115,9 +129,13 @@ const Home = () => {
 
         <section className="text-center py-16 bg-gray-800 rounded-lg">
           <h3 className="text-3xl font-bold mb-4">Ready to Shape Your Future?</h3>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">Join CareerQuest today and access a world of opportunities tailored just for you.</p>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Join CareerQuest today and access a world of opportunities tailored just for you.
+          </p>
           <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
-            <Link href="/dashboard" aria-label="Join CareerQuest and start your journey">Join CareerQuest</Link>
+            <Link href="/dashboard" aria-label="Join CareerQuest and start your journey">
+              Join CareerQuest
+            </Link>
           </Button>
         </section>
       </main>

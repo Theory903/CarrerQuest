@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from "react";
 import {
   Radar,
   RadarChart,
@@ -9,9 +10,9 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from 'recharts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+} from "recharts";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import axios from "axios";
 
 interface InterestData {
   category: string;
@@ -19,123 +20,112 @@ interface InterestData {
   fullMark: number;
 }
 
-interface CareerInterestRadarProps {
-  initialData?: InterestData[];
-  title?: string;
-  chartColors?: {
-    area: string;
-    stroke: string;
-    grid: string;
-    text: string;
-  };
-  onDataChange?: (newData: InterestData[]) => void;
-}
-
-const defaultInitialData: InterestData[] = [
-  { category: 'STEM', score: 0, fullMark: 100 },
-  { category: 'Arts', score: 0, fullMark: 100 },
-  { category: 'Business', score: 0, fullMark: 100 },
-  { category: 'Social Sciences', score: 0, fullMark: 100 },
-  { category: 'Healthcare', score: 0, fullMark: 100 },
-];
-
 const defaultChartColors = {
-  area: '#8884d8',
-  stroke: '#8884d8',
-  grid: '#545454',
-  text: '#e0e0e0',
+  area: "#8884d8",
+  stroke: "#8884d8",
+  grid: "#545454",
+  text: "#e0e0e0",
 };
 
-const CareerInterestRadar: React.FC<CareerInterestRadarProps> = ({
-  initialData = defaultInitialData,
-  title = "Career Interest Profile",
-  chartColors = defaultChartColors,
-  onDataChange,
-}) => {
+const CareerInterestRadar: React.FC = () => {
   const [data, setData] = useState<InterestData[]>([]);
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const apiUrl = `${process.env.REACT_APP_BACKEND_URL || "http://localhost:5001"}/api/interests`;
 
   useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
+    console.log("useEffect triggered, attempting to fetch data."); // Logs when useEffect is called
+    const fetchData = async () => {
+      console.log("API URL:", apiUrl); // Logs the API URL being used
+      try {
+        const response = await axios.get(apiUrl);
+        console.log("API Response Data:", response.data); // Logs the fetched data
+        setData(response.data);
+        console.log("Updated data state:", response.data); // Logs updated data
+        setError(null); // Clear any previous errors
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          console.error("Failed to fetch data from the backend:", err.response || err.message);
+        } else {
+          console.error("Failed to fetch data from the backend:", err);
+        }
+        setError("Failed to load data. Please try again.");
+        console.error("Error state set:", "Failed to load data. Please try again.");
+      } finally {
+        setIsLoading(false);
+        console.log("Fetch attempt completed."); // Logs when the fetch completes
+      }
+    };
 
-  const handleCategoryClick = (category: string) => {
-    const newData = data.map(item =>
-      item.category === category
-        ? { ...item, score: Math.min(item.score + 5, item.fullMark) }
-        : item
+    fetchData();
+  }, [apiUrl]);
+
+  if (isLoading) {
+    console.log("Loading state active. Displaying loading message.");
+    return (
+      <div className="flex justify-center items-center h-full">
+        <p className="text-white text-lg">Loading data...</p>
+      </div>
     );
-    setData(newData);
-    onDataChange?.(newData);
-  };
-
-  const handleReset = () => {
-    setData(initialData);
-    onDataChange?.(initialData);
-  };
-
-  if (data.length === 0) {
-    return <div>Loading...</div>;
   }
 
+  if (error) {
+    console.log("Error detected. Displaying error message:", error);
+    return (
+      <div className="flex flex-col justify-center items-center h-full text-white">
+        <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  console.log("Rendering chart with data:", data);
   return (
-    <Card className="bg-gray-900 text-white">
+    <Card className="bg-gray-900 text-white shadow-lg rounded-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-semibold">{title}</CardTitle>
+        <CardTitle className="text-3xl font-bold text-center mb-6">
+          Career Interest Profile
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="mb-4">
-          <p className="text-sm text-gray-300">
-            Click on a category to increase its score. Hover over the chart to see details.
+        <div className="mb-6 text-center">
+          <p className="text-sm text-gray-400">
+            This chart displays your career interests based on the provided data.
           </p>
         </div>
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={400}>
           <RadarChart data={data}>
-            <PolarGrid stroke={chartColors.grid} />
+            <PolarGrid stroke={defaultChartColors.grid} />
             <PolarAngleAxis
               dataKey="category"
-              tick={{ fill: chartColors.text }}
-              axisLine={{ stroke: chartColors.grid }}
+              tick={{ fill: defaultChartColors.text }}
+              axisLine={{ stroke: defaultChartColors.grid }}
             />
-            <PolarRadiusAxis 
-              angle={30} 
-              domain={[0, 'dataMax']} 
-              tick={{ fill: chartColors.text }} 
+            <PolarRadiusAxis
+              angle={30}
+              domain={[0, "dataMax"]}
+              tick={{ fill: defaultChartColors.text }}
             />
             <Radar
               name="Interests"
               dataKey="score"
-              stroke={chartColors.stroke}
-              fill={chartColors.area}
+              stroke={defaultChartColors.stroke}
+              fill={defaultChartColors.area}
               fillOpacity={0.6}
             />
             <Tooltip
-              contentStyle={{ backgroundColor: '#1f2937', border: 'none' }}
-              itemStyle={{ color: '#ffffff' }}
+              contentStyle={{ backgroundColor: "#1f2937", border: "none" }}
+              itemStyle={{ color: "#ffffff" }}
             />
             <Legend />
           </RadarChart>
         </ResponsiveContainer>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {data.map((item) => (
-            <Button
-              key={item.category}
-              onClick={() => handleCategoryClick(item.category)}
-              onMouseEnter={() => setHoveredCategory(item.category)}
-              onMouseLeave={() => setHoveredCategory(null)}
-              className={`bg-gray-700 hover:bg-gray-600 ${
-                hoveredCategory === item.category ? 'ring-2 ring-blue-500' : ''
-              }`}
-            >
-              {item.category}: {item.score}
-            </Button>
-          ))}
-        </div>
-        <div className="mt-4">
-          <Button onClick={handleReset} variant="outline">
-            Refresh
-          </Button>
-        </div>
       </CardContent>
     </Card>
   );

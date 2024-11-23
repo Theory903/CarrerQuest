@@ -1,32 +1,46 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import Head from 'next/head';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import MentorCard from '../../components/MentorCard';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import MentorCard from "@/components/MentorCard";
+import axios from "axios";
 
-// Sample mentor data (you might fetch this from an API or a database)
-const sampleMentors = [
-  { id: 1, name: 'John Doe', expertise: 'Machine Learning', bio: 'Experienced ML engineer with a background in NLP.', availability: 'Mon, Wed, Fri' },
-  { id: 2, name: 'Jane Smith', expertise: 'Web Development', bio: 'Full-stack developer with a focus on modern JavaScript frameworks.', availability: 'Tue, Thu' },
-  { id: 3, name: 'Alice Johnson', expertise: 'Data Science', bio: 'Data scientist specializing in predictive analytics and visualization.', availability: 'Mon, Thu, Sat' },
-  { id: 4, name: 'Bob Williams', expertise: 'Cybersecurity', bio: 'Cybersecurity expert with experience in threat detection and prevention.', availability: 'Wed, Fri' },
-  { id: 5, name: 'Eva Brown', expertise: 'UX/UI Design', bio: 'UX/UI designer passionate about creating intuitive user experiences.', availability: 'Tue, Sat' },
-  { id: 6, name: 'Mike Davis', expertise: 'Mobile App Development', bio: 'Mobile app developer skilled in both iOS and Android platforms.', availability: 'Mon, Wed, Fri' },
-];
+interface Mentor {
+  id: number;
+  name: string;
+  expertise: string;
+  bio: string;
+  availability: string;
+}
 
 const MentorshipPage: React.FC = () => {
+  const [mentors, setMentors] = useState<Mentor[]>([]);
   const [mentorshipRequest, setMentorshipRequest] = useState({
-    name: '',
-    email: '',
-    preferredMentor: '',
-    message: '',
+    name: "",
+    email: "",
+    preferredMentor: "",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [filterExpertise, setFilterExpertise] = useState('');
+  const [filterExpertise, setFilterExpertise] = useState("");
   const router = useRouter();
+
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5001";
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/mentors`);
+        setMentors(response.data);
+      } catch (error) {
+        console.error("Failed to fetch mentors:", error);
+      }
+    };
+
+    fetchMentors();
+  }, [backendUrl]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -36,37 +50,33 @@ const MentorshipPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Process the mentorship request (e.g., send it to the backend)
-    console.log('Mentorship Request:', mentorshipRequest);
-    setSubmitted(true);
-    // Reset form after submission
-    setMentorshipRequest({
-      name: '',
-      email: '',
-      preferredMentor: '',
-      message: '',
-    });
-    // Simulate navigation to dashboard after submission
-    setTimeout(() => router.push('/dashboard'), 3000);
+    try {
+      await axios.post(`${backendUrl}/api/mentorshipRequests`, mentorshipRequest);
+      setSubmitted(true);
+      setMentorshipRequest({
+        name: "",
+        email: "",
+        preferredMentor: "",
+        message: "",
+      });
+      setTimeout(() => router.push("/dashboard"), 3000);
+    } catch (error) {
+      console.error("Failed to submit mentorship request:", error);
+    }
   };
 
-  const filteredMentors = sampleMentors.filter(mentor => 
-    filterExpertise === '' || mentor.expertise.toLowerCase().includes(filterExpertise.toLowerCase())
+  const filteredMentors = mentors.filter((mentor) =>
+    filterExpertise === "" || mentor.expertise.toLowerCase().includes(filterExpertise.toLowerCase())
   );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Head>
-        <title>CareerQuest | Mentorship Program</title>
-        <meta name="description" content="Connect with experienced mentors to guide your career journey." />
-      </Head>
       <Navbar />
       <main className="container mx-auto p-8">
         <h1 className="text-5xl font-bold mb-8 text-center">Mentorship Program</h1>
 
-        {/* Mentorship Request Form */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-12">
           <h2 className="text-3xl font-semibold mb-6">Request a Mentor</h2>
           {submitted ? (
@@ -108,8 +118,10 @@ const MentorshipPage: React.FC = () => {
                   className="w-full p-2 bg-gray-700 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Select a mentor (optional)</option>
-                  {sampleMentors.map(mentor => (
-                    <option key={mentor.id} value={mentor.name}>{mentor.name} - {mentor.expertise}</option>
+                  {mentors.map((mentor) => (
+                    <option key={mentor.id} value={mentor.name}>
+                      {mentor.name} - {mentor.expertise}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -134,7 +146,6 @@ const MentorshipPage: React.FC = () => {
           )}
         </div>
 
-        {/* Mentors List */}
         <div>
           <h2 className="text-3xl font-semibold mb-6">Meet Our Mentors</h2>
           <div className="mb-6">

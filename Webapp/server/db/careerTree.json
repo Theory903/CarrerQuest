@@ -1,0 +1,55 @@
+[
+    {
+      "name": "Technology",
+      "description": "Explore cutting-edge technology fields.",
+      "children": [
+        {
+          "name": "Software Development",
+          "color": "#8884d8",
+          "description": "Create and maintain software applications."
+        },
+        {
+          "name": "Data Science",
+          "color": "#82ca9d",
+          "description": "Analyze and interpret complex data."
+        },
+        {
+          "name": "Cybersecurity",
+          "color": "#ffc658",
+          "description": "Protect systems and data from cyber threats."
+        }
+      ]
+    },
+    {
+      "name": "Arts",
+      "description": "Express creativity and explore artistic fields.",
+      "children": [
+        {
+          "name": "Graphic Design",
+          "color": "#ff7300",
+          "description": "Design visual content for various media."
+        },
+        {
+          "name": "Music",
+          "color": "#a4de6c",
+          "description": "Create and perform music in various genres."
+        }
+      ]
+    },
+    {
+      "name": "Business",
+      "description": "Engage in business and management activities.",
+      "children": [
+        {
+          "name": "Marketing",
+          "color": "#d0ed57",
+          "description": "Promote products and services to customers."
+        },
+        {
+          "name": "Finance",
+          "color": "#a4de6c",
+          "description": "Manage and analyze financial resources."
+        }
+      ]
+    }
+  ]

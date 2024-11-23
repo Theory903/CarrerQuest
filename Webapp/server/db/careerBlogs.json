@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "title": "Exploring Machine Learning Careers",
+      "content": "Machine learning offers a wide range of opportunities in AI, data analysis, and automation.",
+      "category": "Technology"
+    },
+    {
+      "id": 2,
+      "title": "The Future of Web Development",
+      "content": "Web development is evolving rapidly with frameworks like React, Angular, and Vue.",
+      "category": "Technology"
+    },
+    {
+      "id": 3,
+      "title": "Cybersecurity as a Career Path",
+      "content": "Learn about the importance of cybersecurity in protecting sensitive information.",
+      "category": "Technology"
+    }
+  ]

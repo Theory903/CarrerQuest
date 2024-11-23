@@ -1,0 +1,7 @@
+[
+    { "category": "STEM", "score": 85, "fullMark": 100 },
+    { "category": "Arts", "score": 60, "fullMark": 100 },
+    { "category": "Business", "score": 75, "fullMark": 100 },
+    { "category": "Social Sciences", "score": 90, "fullMark": 100 },
+    { "category": "Healthcare", "score": 70, "fullMark": 100 }
+  ]

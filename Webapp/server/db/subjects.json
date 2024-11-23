@@ -1,0 +1,7 @@
+[
+    { "subject": "Mathematics", "score": 90, "type": "strength" },
+    { "subject": "Science", "score": 80, "type": "strength" },
+    { "subject": "Language Arts", "score": 60, "type": "weakness" },
+    { "subject": "Social Studies", "score": 70, "type": "weakness" },
+    { "subject": "Physical Education", "score": 85, "type": "strength" }
+  ]

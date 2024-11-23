@@ -1,0 +1,6 @@
+[
+    { "year": "Year 9", "Mathematics": 75, "Science": 80, "English": 70, "History": 65 },
+    { "year": "Year 10", "Mathematics": 80, "Science": 85, "English": 72, "History": 68 },
+    { "year": "Year 11", "Mathematics": 85, "Science": 90, "English": 74, "History": 70 },
+    { "year": "Year 12", "Mathematics": 90, "Science": 95, "English": 70, "History": 60 }
+  ]

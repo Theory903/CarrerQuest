@@ -1,0 +1,8 @@
+[
+    { "id": 1, "name": "John Doe", "expertise": "Machine Learning", "bio": "Experienced ML engineer with a background in NLP.", "availability": "Mon, Wed, Fri" },
+    { "id": 2, "name": "Jane Smith", "expertise": "Web Development", "bio": "Full-stack developer with a focus on modern JavaScript frameworks.", "availability": "Tue, Thu" },
+    { "id": 3, "name": "Alice Johnson", "expertise": "Data Science", "bio": "Data scientist specializing in predictive analytics and visualization.", "availability": "Mon, Thu, Sat" },
+    { "id": 4, "name": "Bob Williams", "expertise": "Cybersecurity", "bio": "Cybersecurity expert with experience in threat detection and prevention.", "availability": "Wed, Fri" },
+    { "id": 5, "name": "Eva Brown", "expertise": "UX/UI Design", "bio": "UX/UI designer passionate about creating intuitive user experiences.", "availability": "Tue, Sat" },
+    { "id": 6, "name": "Mike Davis", "expertise": "Mobile App Development", "bio": "Mobile app developer skilled in both iOS and Android platforms.", "availability": "Mon, Wed, Fri" }
+  ]

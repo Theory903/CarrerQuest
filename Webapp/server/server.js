@@ -21,8 +21,8 @@ const app = express();
 app.use(helmet());
 const allowedOrigins =
   process.env.NODE_ENV === "production"
-    ? ["https://your-production-url.com"]
-    : ["http://localhost:3000"];
+    ? ["carrer-quest.vercel.app"]
+    : ["http://localhost"];
 app.use(
   cors({
     origin: allowedOrigins,

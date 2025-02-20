@@ -34,7 +34,7 @@ const AcademicPerformanceLineChart: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL || "http://localhost:5001"}/api/academicPerformance`;
+  const backendUrl = "http://localhost:5001/api/academicPerformance";
 
   useEffect(() => {
     const fetchData = async () => {

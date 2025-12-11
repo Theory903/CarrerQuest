@@ -1,5 +1,8 @@
 # Dependencies
 node_modules/
+**/node_modules/
+Webapp/server/node_modules/
+Webapp/node_modules/
 /.pnp
 .pnp.js
 

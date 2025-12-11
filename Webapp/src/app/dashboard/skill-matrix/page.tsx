@@ -7,25 +7,32 @@ import SkillMatrix from '@/components/Dashboard/SkillMatrix';
 
 const SkillMatrixPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-slate-950">
       {/* Global Navigation */}
       <Navbar />
 
       {/* Main Content */}
-      <main className="container mx-auto p-8">
-        {/* Page Header */}
-        <header className="mb-8">
-          <h2 className="text-4xl font-bold mb-4">Skill Matrix</h2>
-        </header>
+      <section className="pt-28 pb-8">
+        <div className="container mx-auto px-6">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Skill Matrix
+            </h1>
+            <p className="text-slate-400">
+              Analyze your skills and identify areas for growth
+            </p>
+          </div>
 
-        {/* Dashboard-specific Navigation */}
-        <DashboardNavbar />
+          {/* Dashboard-specific Navigation */}
+          <DashboardNavbar />
 
-        {/* Main Content with gap */}
-        <section className="bg-gray-800 p-6 rounded-lg shadow-lg mt-6">
-          <SkillMatrix />
-        </section>
-      </main>
+          {/* Main Content with gap */}
+          <div className="card-elevated p-0 overflow-hidden mt-8">
+            <SkillMatrix />
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <Footer />

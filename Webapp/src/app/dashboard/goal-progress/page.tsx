@@ -1,34 +1,38 @@
-// src/pages/goal-progress.tsx
+"use client";
+
 import React from 'react';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import DashboardNavbar from '@/components/Dashboard/DashboardNavbar';
-import GPT from '@/components/Dashboard/GoalProgressTracker';
+import GoalProgressTracker from '@/components/Dashboard/GoalProgressTracker';
 
-const GoalProgress: React.FC = () => {
+const GoalProgressPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {/* Global Navigation */}
+    <div className="min-h-screen bg-slate-950">
       <Navbar />
       
-      {/* Main Content */}
-      <div className="container mx-auto p-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold mb-4">Goal Progress Tracker</h2>
+      <section className="pt-28 pb-8">
+        <div className="container mx-auto px-6">
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Goal Progress
+            </h1>
+            <p className="text-slate-400">
+              Track your career milestones and achievements
+            </p>
+          </div>
+
           <DashboardNavbar />
+          
+          <div className="card-elevated p-0 overflow-hidden mt-8">
+            <GoalProgressTracker />
+          </div>
         </div>
-        
-        {/* Main Dashboard Content */}
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <GPT />
-        </div>
-      </div>
+      </section>
       
-      {/* Footer */}
       <Footer />
     </div>
   );
 };
 
-export default GoalProgress;
+export default GoalProgressPage;

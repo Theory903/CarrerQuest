@@ -1,15 +1,22 @@
-const express = require("express");
-const {
-  getSubjects,
-  updateSubjects,
-  seedSubjects,
-} = require("../controllers/strengthsWeaknessesController");
+import express from 'express';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = express.Router();
 
-// Define routes
-router.get("/", getSubjects); // Fetch all subjects
-router.put("/", updateSubjects); // Update subjects
-router.post("/seed", seedSubjects); // Seed default subjects
+// GET /api/subjects
+router.get('/', (req, res) => {
+  try {
+    const data = JSON.parse(readFileSync(join(__dirname, '../db/subjects.json'), 'utf-8'));
+    res.json(data);
+  } catch (error) {
+    console.error('Error reading subjects data:', error);
+    res.status(500).json({ error: 'Failed to load subjects data' });
+  }
+});
 
-module.exports = router;
+export default router;

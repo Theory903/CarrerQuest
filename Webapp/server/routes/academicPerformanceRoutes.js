@@ -1,9 +1,22 @@
-const express = require("express");
-const { getAcademicPerformance } = require("../controllers/academicPerformanceController");
+import express from 'express';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = express.Router();
 
-// Route to get academic performance data
-router.get("/", getAcademicPerformance);
+// GET /api/academicPerformance
+router.get('/', (req, res) => {
+  try {
+    const data = JSON.parse(readFileSync(join(__dirname, '../db/academicPerformance.json'), 'utf-8'));
+    res.json(data);
+  } catch (error) {
+    console.error('Error reading academic performance data:', error);
+    res.status(500).json({ error: 'Failed to load academic performance data' });
+  }
+});
 
-module.exports = router;
+export default router;

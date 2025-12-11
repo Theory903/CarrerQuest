@@ -1,9 +1,22 @@
-const express = require("express");
-const { getParticipationData } = require("../controllers/participationController");
+import express from 'express';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = express.Router();
 
-// Define the route to get participation data
-router.get("/", getParticipationData);
+// GET /api/participation
+router.get('/', (req, res) => {
+  try {
+    const data = JSON.parse(readFileSync(join(__dirname, '../db/participation.json'), 'utf-8'));
+    res.json(data);
+  } catch (error) {
+    console.error('Error reading participation data:', error);
+    res.status(500).json({ error: 'Failed to load participation data' });
+  }
+});
 
-module.exports = router;
+export default router;

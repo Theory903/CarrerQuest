@@ -1,84 +1,133 @@
 "use client";
+
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { 
+  Menu, 
+  X, 
+  LayoutGrid, 
+  LineChart, 
+  GraduationCap, 
+  Users2, 
+  Target, 
+  GitBranch, 
+  Brain 
+} from 'lucide-react';
 
 interface NavItem {
   href: string;
   label: string;
+  icon: React.ElementType;
 }
 
 const navItems: NavItem[] = [
-  { href: '/dashboard', label: 'Overview' },
-  { href: '/dashboard/skill-matrix', label: 'Skill Matrix' },
-  { href: '/dashboard/academic-performance', label: 'Academic Performance' },
-  { href: '/dashboard/participation-levels', label: 'Participation Levels' },
-  { href: '/dashboard/goal-progress', label: 'Goal Progress' },
-  { href: '/dashboard/career-tree', label: 'Career Path' },
-  { href: '/dashboard/personality-insights', label: 'Personality Insights' },
+  { href: '/dashboard', label: 'Overview', icon: LayoutGrid },
+  { href: '/dashboard/skill-matrix', label: 'Skills', icon: LineChart },
+  { href: '/dashboard/academic-performance', label: 'Academic', icon: GraduationCap },
+  { href: '/dashboard/participation-levels', label: 'Participation', icon: Users2 },
+  { href: '/dashboard/goal-progress', label: 'Goals', icon: Target },
+  { href: '/dashboard/career-tree', label: 'Career Path', icon: GitBranch },
+  { href: '/dashboard/personality-insights', label: 'Personality', icon: Brain },
 ];
-
-interface NavLinkProps extends NavItem {
-  onClick?: () => void;
-}
-
-const NavLink: React.FC<NavLinkProps> = ({ href, label, onClick }) => (
-  <li>
-    <Link
-      href={href}
-      className="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-300"
-      onClick={onClick}
-    >
-      {label}
-    </Link>
-  </li>
-);
 
 const DashboardNavbar: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+  const isActive = (href: string) => {
+    if (href === '/dashboard') return pathname === '/dashboard';
+    return pathname?.startsWith(href);
+  };
 
   return (
-    <nav className="bg-gray-800 text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-          </div>
-          <div className="hidden md:block">
-            <ul className="flex space-x-4">
-              {navItems.map((item) => (
-                <NavLink key={item.href} {...item} />
-              ))}
-            </ul>
-          </div>
-          <div className="md:hidden">
-            <button
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              onClick={toggleMobileMenu}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              <span className="sr-only">Open main menu</span>
-              {isMobileMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+    <nav className="mb-8">
+      {/* Desktop Navigation */}
+      <div className="hidden lg:block">
+        <div className="flex items-center gap-2 p-2 bg-slate-900/50 rounded-2xl border border-slate-800/60">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  active
+                    ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span className="hidden xl:inline">{item.label}</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
-      <div
-        className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}
-        id="mobile-menu"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {navItems.map((item) => (
-            <NavLink key={item.href} {...item} onClick={() => setMobileMenuOpen(false)} />
-          ))}
+      {/* Tablet Navigation */}
+      <div className="hidden md:flex lg:hidden items-center gap-2 p-2 bg-slate-900/50 rounded-2xl border border-slate-800/60 overflow-x-auto">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 flex-shrink-0 ${
+                active
+                  ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              }`}
+              title={item.label}
+            >
+              <Icon className="w-5 h-5" />
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden">
+        <button
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          className="flex items-center gap-2 px-4 py-3 w-full bg-slate-900/50 rounded-xl border border-slate-800/60 text-slate-300"
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
+          <span className="font-medium">Dashboard Navigation</span>
+        </button>
+
+        <div
+          className={`mt-2 overflow-hidden transition-all duration-300 ease-out ${
+            isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="bg-slate-900/80 rounded-xl border border-slate-800/60 p-2 space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    active
+                      ? 'bg-primary-500/20 text-primary-400'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </nav>

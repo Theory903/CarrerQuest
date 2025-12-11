@@ -11,8 +11,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import axios from "axios";
+import { RefreshCw, AlertCircle, TrendingUp } from "lucide-react";
 
 interface InterestData {
   category: string;
@@ -20,114 +19,188 @@ interface InterestData {
   fullMark: number;
 }
 
-const defaultChartColors = {
-  area: "#8884d8",
-  stroke: "#8884d8",
-  grid: "#545454",
-  text: "#e0e0e0",
+// Fallback data when API fails
+const fallbackData: InterestData[] = [
+  { category: "STEM", score: 85, fullMark: 100 },
+  { category: "Arts", score: 60, fullMark: 100 },
+  { category: "Business", score: 75, fullMark: 100 },
+  { category: "Social Sciences", score: 90, fullMark: 100 },
+  { category: "Healthcare", score: 70, fullMark: 100 },
+];
+
+const chartColors = {
+  area: "rgba(14, 165, 233, 0.4)",
+  stroke: "#0ea5e9",
+  grid: "rgba(148, 163, 184, 0.15)",
+  text: "#94a3b8",
+  dot: "#0ea5e9",
 };
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: { payload: InterestData }[];
+}
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
+  if (active && payload && payload.length && payload[0].payload) {
+    const { category, score } = payload[0].payload;
+    return (
+      <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700/60 px-4 py-3 rounded-xl shadow-xl">
+        <p className="text-white font-semibold mb-1">{category}</p>
+        <p className="text-primary-400">
+          Score: <span className="font-bold">{score}%</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const LoadingSkeleton: React.FC = () => (
+  <div className="p-8">
+    <div className="flex items-center justify-between mb-6">
+      <div className="w-48 h-7 rounded skeleton" />
+      <div className="w-24 h-6 rounded-full skeleton" />
+    </div>
+    <div className="flex items-center justify-center h-[350px]">
+      <div className="w-64 h-64 rounded-full skeleton opacity-50" />
+    </div>
+  </div>
+);
 
 const CareerInterestRadar: React.FC = () => {
   const [data, setData] = useState<InterestData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isOffline, setIsOffline] = useState<boolean>(false);
 
-  const apiUrl = `${process.env.REACT_APP_BACKEND_URL || "http://localhost:5001"}/api/interests`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5001"}/api/interests`;
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error('Failed to fetch');
+      const result = await response.json();
+      setData(result.length > 0 ? result : fallbackData);
+      setIsOffline(false);
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+      setData(fallbackData);
+      setIsOffline(true);
+      setError("Using cached data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    console.log("useEffect triggered, attempting to fetch data."); // Logs when useEffect is called
-    const fetchData = async () => {
-      console.log("API URL:", apiUrl); // Logs the API URL being used
-      try {
-        const response = await axios.get(apiUrl);
-        console.log("API Response Data:", response.data); // Logs the fetched data
-        setData(response.data);
-        console.log("Updated data state:", response.data); // Logs updated data
-        setError(null); // Clear any previous errors
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          console.error("Failed to fetch data from the backend:", err.response || err.message);
-        } else {
-          console.error("Failed to fetch data from the backend:", err);
-        }
-        setError("Failed to load data. Please try again.");
-        console.error("Error state set:", "Failed to load data. Please try again.");
-      } finally {
-        setIsLoading(false);
-        console.log("Fetch attempt completed."); // Logs when the fetch completes
-      }
-    };
-
     fetchData();
-  }, [apiUrl]);
+  }, []);
 
   if (isLoading) {
-    console.log("Loading state active. Displaying loading message.");
-    return (
-      <div className="flex justify-center items-center h-full">
-        <p className="text-white text-lg">Loading data...</p>
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
-  if (error) {
-    console.log("Error detected. Displaying error message:", error);
-    return (
-      <div className="flex flex-col justify-center items-center h-full text-white">
-        <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
+  const highestScore = Math.max(...data.map(d => d.score));
+  const topCategory = data.find(d => d.score === highestScore)?.category || '';
 
-  console.log("Rendering chart with data:", data);
   return (
-    <Card className="bg-gray-900 text-white shadow-lg rounded-lg">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold text-center mb-6">
-          Career Interest Profile
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="mb-6 text-center">
-          <p className="text-sm text-gray-400">
-            This chart displays your career interests based on the provided data.
-          </p>
+    <div className="p-6">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-6">
+        <div>
+          <h3 className="text-xl font-bold text-white mb-1">Career Interest Profile</h3>
+          <p className="text-slate-400 text-sm">Your interests across different fields</p>
         </div>
-        <ResponsiveContainer width="100%" height={400}>
-          <RadarChart data={data}>
-            <PolarGrid stroke={defaultChartColors.grid} />
-            <PolarAngleAxis
-              dataKey="category"
-              tick={{ fill: defaultChartColors.text }}
-              axisLine={{ stroke: defaultChartColors.grid }}
-            />
-            <PolarRadiusAxis
-              angle={30}
-              domain={[0, "dataMax"]}
-              tick={{ fill: defaultChartColors.text }}
-            />
-            <Radar
-              name="Interests"
-              dataKey="score"
-              stroke={defaultChartColors.stroke}
-              fill={defaultChartColors.area}
-              fillOpacity={0.6}
-            />
-            <Tooltip
-              contentStyle={{ backgroundColor: "#1f2937", border: "none" }}
-              itemStyle={{ color: "#ffffff" }}
-            />
-            <Legend />
-          </RadarChart>
-        </ResponsiveContainer>
-      </CardContent>
-    </Card>
+        <div className="flex items-center gap-2">
+          {isOffline && (
+            <span className="badge-accent text-xs">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              Offline
+            </span>
+          )}
+          <button
+            onClick={fetchData}
+            className="w-8 h-8 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700/60 transition-all"
+            title="Refresh data"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Top Interest Badge */}
+      <div className="flex items-center gap-2 p-3 mb-6 rounded-xl bg-primary-500/10 border border-primary-500/20">
+        <TrendingUp className="w-5 h-5 text-primary-400" />
+        <span className="text-sm text-slate-300">
+          Highest interest in <span className="text-primary-400 font-semibold">{topCategory}</span> ({highestScore}%)
+        </span>
+      </div>
+
+      {/* Chart */}
+      <ResponsiveContainer width="100%" height={350}>
+        <RadarChart data={data} cx="50%" cy="50%" outerRadius="75%">
+          <PolarGrid 
+            stroke={chartColors.grid} 
+            strokeDasharray="3 3"
+          />
+          <PolarAngleAxis
+            dataKey="category"
+            tick={{ fill: chartColors.text, fontSize: 12, fontWeight: 500 }}
+            axisLine={{ stroke: chartColors.grid }}
+          />
+          <PolarRadiusAxis
+            angle={30}
+            domain={[0, 100]}
+            tick={{ fill: chartColors.text, fontSize: 10 }}
+            tickCount={5}
+            axisLine={false}
+          />
+          <Radar
+            name="Interest Score"
+            dataKey="score"
+            stroke={chartColors.stroke}
+            fill={chartColors.area}
+            fillOpacity={0.6}
+            strokeWidth={2}
+            dot={{
+              r: 4,
+              fill: chartColors.dot,
+              strokeWidth: 2,
+              stroke: '#0f172a',
+            }}
+            activeDot={{
+              r: 6,
+              fill: chartColors.dot,
+              stroke: '#fff',
+              strokeWidth: 2,
+            }}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend 
+            wrapperStyle={{ paddingTop: '20px' }}
+            formatter={(value) => <span className="text-slate-300 text-sm">{value}</span>}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
+
+      {/* Legend Info */}
+      <div className="mt-6 pt-6 border-t border-slate-800/60">
+        <div className="flex flex-wrap gap-4 text-xs text-slate-500">
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-primary-500" />
+            Higher = Stronger Interest
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-slate-600" />
+            Scale: 0-100%
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 

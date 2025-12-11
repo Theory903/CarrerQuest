@@ -8,24 +8,37 @@ import APSBC from '@/components/Dashboard/AcademicPerformanceStackedBarChart';
 
 const Academic: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-slate-950">
       {/* Global Navigation */}
       <Navbar />
       
       {/* Main Content */}
-      <main className="container mx-auto p-8">
-        {/* Page Header */}
-        <header className="mb-8">
-          <h2 className="text-4xl font-bold mb-4">Academic Performance</h2>
+      <section className="pt-28 pb-8">
+        <div className="container mx-auto px-6">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Academic Performance
+            </h1>
+            <p className="text-slate-400">
+              Track your academic progress and achievements
+            </p>
+          </div>
+
+          {/* Dashboard Navigation */}
           <DashboardNavbar />
-        </header>
-        
-        {/* Dashboard Content */}
-        <section className=" bg-gray-800 p-6 rounded-lg shadow-lg">
-          <APLC />
-          <APSBC />
-        </section>
-      </main>
+          
+          {/* Dashboard Content */}
+          <div className="grid gap-8 mt-8">
+            <div className="card-elevated p-0 overflow-hidden">
+              <APLC />
+            </div>
+            <div className="card-elevated p-0 overflow-hidden">
+              <APSBC />
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Footer */}
       <Footer />

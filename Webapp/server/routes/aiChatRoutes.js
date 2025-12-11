@@ -1,9 +1,15 @@
-const express = require("express");
-const { getAIResponse } = require("../controllers/aiChatController");
+import express from 'express';
+import { getAIResponse, analyzeCareer, clearConversation } from '../controllers/aiChatController.js';
 
 const router = express.Router();
 
-// Define routes
-router.post("/", getAIResponse);
+// POST /api/chat - Main chat endpoint
+router.post('/', getAIResponse);
 
-module.exports = router; // Correctly export the router
+// POST /api/chat/analyze - Career analysis
+router.post('/analyze', analyzeCareer);
+
+// POST /api/chat/clear - Clear conversation
+router.post('/clear', clearConversation);
+
+export default router;

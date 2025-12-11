@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./Webapp/server
+      dockerfile: Dockerfile
+    container_name: careerquest-backend
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - JWT_SECRET=${JWT_SECRET:-change_this_in_production}
+      - JWT_EXPIRES_IN=7d
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+    volumes:
+      - ./Webapp/server/db:/app/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5001/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - rabbitmq
+
+  # Frontend Next.js
+  frontend:
+    build:
+      context: ./Webapp
+      dockerfile: Dockerfile
+    container_name: careerquest-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BACKEND_URL=http://backend:5001
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  # RabbitMQ (optional)
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: careerquest-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER:-admin}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS:-admin}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  rabbitmq_data:
+

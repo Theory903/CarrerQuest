@@ -7,23 +7,32 @@ import PRC from '@/components/Dashboard/PersonalityRadarChart';
 
 const PersonalityInsights: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-slate-950">
       {/* Global Navigation */}
       <Navbar />
 
       {/* Main Content */}
-      <div className="container mx-auto p-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold mb-4">Personality Insights</h2>
-          <DashboardNavbar />
-        </div>
+      <section className="pt-28 pb-8">
+        <div className="container mx-auto px-6">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Personality Insights
+            </h1>
+            <p className="text-slate-400">
+              Discover your personality traits and strengths
+            </p>
+          </div>
 
-        {/* Chart Content */}
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-          <PRC />
+          {/* Dashboard Navigation */}
+          <DashboardNavbar />
+
+          {/* Chart Content */}
+          <div className="card-elevated p-0 overflow-hidden mt-8">
+            <PRC />
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Footer */}
       <Footer />

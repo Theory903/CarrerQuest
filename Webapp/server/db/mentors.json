@@ -1,8 +1,82 @@
 [
-    { "id": 1, "name": "John Doe", "expertise": "Machine Learning", "bio": "Experienced ML engineer with a background in NLP.", "availability": "Mon, Wed, Fri" },
-    { "id": 2, "name": "Jane Smith", "expertise": "Web Development", "bio": "Full-stack developer with a focus on modern JavaScript frameworks.", "availability": "Tue, Thu" },
-    { "id": 3, "name": "Alice Johnson", "expertise": "Data Science", "bio": "Data scientist specializing in predictive analytics and visualization.", "availability": "Mon, Thu, Sat" },
-    { "id": 4, "name": "Bob Williams", "expertise": "Cybersecurity", "bio": "Cybersecurity expert with experience in threat detection and prevention.", "availability": "Wed, Fri" },
-    { "id": 5, "name": "Eva Brown", "expertise": "UX/UI Design", "bio": "UX/UI designer passionate about creating intuitive user experiences.", "availability": "Tue, Sat" },
-    { "id": 6, "name": "Mike Davis", "expertise": "Mobile App Development", "bio": "Mobile app developer skilled in both iOS and Android platforms.", "availability": "Mon, Wed, Fri" }
-  ]
+  {
+    "id": 1,
+    "name": "Dr. Arun Sharma",
+    "expertise": "Machine Learning",
+    "bio": "Lead ML Engineer at Google with 10+ years experience in NLP and deep learning. PhD from IIT Delhi. Passionate about mentoring the next generation of AI researchers.",
+    "availability": "Mon, Wed, Fri",
+    "rating": 4.9
+  },
+  {
+    "id": 2,
+    "name": "Priya Patel",
+    "expertise": "Web Development",
+    "bio": "Senior Full-Stack Developer at Microsoft. Expert in React, Node.js, and cloud technologies. Previously founded a successful EdTech startup. Love helping students break into tech.",
+    "availability": "Tue, Thu",
+    "rating": 4.8
+  },
+  {
+    "id": 3,
+    "name": "Rajesh Kumar",
+    "expertise": "Data Science",
+    "bio": "Principal Data Scientist at Amazon. Specializing in predictive analytics and ML at scale. 8 years experience in e-commerce and fintech domains.",
+    "availability": "Mon, Thu, Sat",
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "name": "Sneha Reddy",
+    "expertise": "Cybersecurity",
+    "bio": "Cybersecurity Director at Deloitte. CISSP and CEH certified. Led security programs for Fortune 500 companies. Active speaker at security conferences.",
+    "availability": "Wed, Fri",
+    "rating": 4.9
+  },
+  {
+    "id": 5,
+    "name": "Vikram Mehra",
+    "expertise": "UX/UI Design",
+    "bio": "Design Lead at Figma. Previously at Uber and Airbnb. Passionate about creating inclusive, accessible design systems. Regular design workshop instructor.",
+    "availability": "Tue, Sat",
+    "rating": 4.8
+  },
+  {
+    "id": 6,
+    "name": "Anita Desai",
+    "expertise": "Mobile Development",
+    "bio": "iOS Tech Lead at Apple India. Built apps with millions of downloads. Expert in Swift, SwiftUI, and iOS architecture patterns. Stanford CS graduate.",
+    "availability": "Mon, Wed, Fri",
+    "rating": 4.9
+  },
+  {
+    "id": 7,
+    "name": "Karthik Nair",
+    "expertise": "Cloud Architecture",
+    "bio": "Solutions Architect at AWS. 12 years of cloud infrastructure experience. AWS certified (SA Pro, DevOps Pro). Helped 50+ startups scale their infrastructure.",
+    "availability": "Tue, Thu, Sat",
+    "rating": 4.7
+  },
+  {
+    "id": 8,
+    "name": "Meera Iyer",
+    "expertise": "Product Management",
+    "bio": "Group Product Manager at Netflix. Previously PM at Spotify and LinkedIn. Expert in consumer products and growth strategies. MBA from ISB.",
+    "availability": "Mon, Wed",
+    "rating": 4.9
+  },
+  {
+    "id": 9,
+    "name": "Arjun Rao",
+    "expertise": "DevOps Engineering",
+    "bio": "Platform Engineering Lead at Stripe. Expert in Kubernetes, Terraform, and CI/CD pipelines. Open source contributor and tech blogger.",
+    "availability": "Thu, Fri, Sat",
+    "rating": 4.6
+  },
+  {
+    "id": 10,
+    "name": "Deepika Singh",
+    "expertise": "Blockchain Development",
+    "bio": "Blockchain Architect at Polygon. Early Ethereum contributor. Built DeFi protocols managing $100M+ TVL. Focused on Web3 education.",
+    "availability": "Wed, Sat",
+    "rating": 4.8
+  }
+]

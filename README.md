@@ -1,159 +1,190 @@
-# CareerQuest
+# CareerQuest 🚀
 
-CareerQuest is an innovative, AI-driven web application that helps students navigate career choices by analyzing their skills, interests, and personality traits. Leveraging machine learning algorithms, interactive tools, and personalized recommendations, CareerQuest provides an all-in-one career guidance platform.
+AI-powered career guidance platform helping students discover their ideal career paths with personalized recommendations, expert mentorship, and visual analytics.
 
-The project is part of the **Smart India Hackathon 2024** under the **FeedMind** team.
+## 🏗️ Architecture
 
-## Features
-- **Career Assessment**: Interactive quizzes and mini-games to evaluate users' skills and interests.
-- **Personalized Career Suggestions**: AI-powered recommendations based on individual traits.
-- **Mentor Matching**: Match students with mentors for personalized guidance.
-- **Resource Hub**: Access a wealth of resources for continuous learning.
-- **Career Exploration Tools**: Visually rich and interactive tools for exploring career paths.
-- **Social Collaboration**: Engage with peers and mentors to foster community learning.
+- **Frontend**: Next.js 14 (React 18) with TypeScript
+- **Backend**: Node.js/Express with RESTful API
+- **AI**: Groq (Llama 4) for career guidance
+- **Styling**: Tailwind CSS with custom design system
+- **State Management**: React Context API
 
-## Tech Stack
-- **Frontend**: React.js, Next.js, TailwindCSS
-- **Backend**: Node.js, Express.js, MongoDB
-- **Machine Learning**: Python, Scikit-learn, TensorFlow
-- **Message Queue**: RabbitMQ for task orchestration between Node.js and Python ML models
-
-## Project Structure
-
-```
-CareerQuest/
-│── docs/
-│   ├── ML_documentation.md
-│   ├── Git_guide.md
-│   ├── RabbitMQ.md
-│   ├── UI.md
-│   ├── Usage_Instruction.md
-│
-├── ML/
-│   ├── models/
-│   ├── data/
-│   ├── notebooks/
-│   ├── scripts/
-│   ├── worker.py
-│   ├── preprocessing.py
-│   ├── prediction.py
-│   └── requirements.txt
-│
-├── Webapp/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── fonts/
-│   │   │   ├── mentorships/
-│   │   │   ├── students/
-│   │   │   ├── favicon.ico
-│   │   │   ├── globals.css
-│   │   │   ├── layout.tsx
-│   │   │   └── page.tsx
-│   │   └── components/
-│   │       ├── Dashboard/
-│   │       │   ├── AcademicPerformanceLineChart.tsx
-│   │       │   ├── AcademicPerformanceStackedBarChart.tsx
-│   │       │   ├── CareerInterestRadar.tsx
-│   │       │   ├── CareerTree.tsx
-│   │       │   ├── GoalProgressTracker.tsx
-│   │       │   ├── ParticipationDonutChart.tsx
-│   │       │   ├── PersonalityRadarChart.tsx
-│   │       │   ├── ReflectionTimeline.tsx
-│   │       │   ├── SkillMatrix.tsx
-│   │       │   └── StrengthsWeaknessesBarChart.tsx
-│   │       ├── BadgeDisplay.tsx
-│   │       ├── CareerTree.tsx
-│   │       ├── CTAButton.tsx
-│   │       ├── Footer.tsx
-│   │       ├── HeroSection.tsx
-│   │       ├── Layout.tsx
-│   │       ├── Leaderboard.tsx
-│   │       ├── MentorCard.tsx
-│   │       ├── Navbar.tsx
-│   │       ├── QuizCard.tsx
-│   │       └── ResourceCard.tsx
-│   ├── public/
-│   └── server/
-│       ├── controllers/
-│       ├── models/
-│       ├── routes/
-│       ├── utils/
-│       └── server.js
-│
-├── .gitignore
-├── LICENSE
-├── README.md
-└── CONTRIBUTING.md
-
-```
-
-## Installation
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js
-- Python 3.x
-- MongoDB
-- RabbitMQ
-- Docker (optional, for RabbitMQ)
 
-### 1. Clone the Repository
+- Node.js 20+ 
+- npm or yarn
+- (Optional) Docker & Docker Compose
+
+### Development Setup
+
+1. **Clone the repository**
 ```bash
-git clone https://github.com/Theory903/CarrerQuest.git
+git clone <repository-url>
 cd CarrerQuest
 ```
 
-### 2. Install Backend and Frontend Dependencies
-Navigate to the `Webapp` folder:
-```bash
-cd Webapp
-npm install
-```
-
-### 3. Install Python Dependencies
-Navigate to the `ML` folder and install the Python dependencies:
-```bash
-cd ../ML
-pip install -r requirements.txt
-```
-
-### 4. Running RabbitMQ
-You can either install RabbitMQ manually or use Docker:
-```bash
-docker run -d --hostname rabbitmq --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-```
-
-Access RabbitMQ at `http://localhost:15672` (default username/password: `guest/guest`).
-
-### 5. Running the Project
-
-#### Start RabbitMQ Worker (Python ML)
-```bash
-cd ML
-python scripts/worker.py
-```
-
-#### Start Backend (Node.js)
+2. **Backend Setup**
 ```bash
 cd Webapp/server
-npm start
-```
-
-#### Start Frontend (React)
-```bash
-cd Webapp/client
+npm install
+cp .env.example .env
+# Edit .env with your API keys
 npm run dev
 ```
 
-## How It Works
+3. **Frontend Setup**
+```bash
+cd Webapp
+npm install
+cp .env.example .env.local
+# Edit .env.local with backend URL
+npm run dev
+```
 
-1. **Frontend User Interaction**: Users take quizzes, explore career paths, and interact with the platform.
-2. **Backend**: Node.js manages API requests, stores data in MongoDB, and sends tasks to RabbitMQ.
-3. **ML Models**: Python-based machine learning models process user data (e.g., quiz results) and return personalized career suggestions.
-4. **Message Queue**: RabbitMQ facilitates task management between the Node.js backend and Python services, ensuring asynchronous, non-blocking operations.
+4. **Access the application**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5001
+- Health Check: http://localhost:5001/api/health
 
-## Contribution Guidelines
+## 🐳 Docker Deployment
 
-We welcome contributions to improve CareerQuest. Please read the [CONTRIBUTING.md](./CONTRIBUTING.md%20) for detailed guidelines.
+### Using Docker Compose (Recommended)
 
-## License
-This project is licensed under the Apache-2.0 License. See the [LICENSE](./LICENSE) file for more information.
+```bash
+# Create .env file in root directory
+cp Webapp/server/.env.example .env
+
+# Edit .env with your production values
+# Then run:
+docker-compose up -d
+```
+
+### Individual Containers
+
+**Backend:**
+```bash
+cd Webapp/server
+docker build -t careerquest-backend .
+docker run -p 5001:5001 --env-file .env careerquest-backend
+```
+
+**Frontend:**
+```bash
+cd Webapp
+docker build -t careerquest-frontend .
+docker run -p 3000:3000 -e NEXT_PUBLIC_BACKEND_URL=http://localhost:5001 careerquest-frontend
+```
+
+## 📦 Production Build
+
+### Frontend
+```bash
+cd Webapp
+npm run build
+npm start
+```
+
+### Backend
+```bash
+cd Webapp/server
+NODE_ENV=production npm start
+```
+
+## 🌐 Deployment
+
+### Vercel (Frontend)
+
+1. Push code to GitHub
+2. Import project in Vercel
+3. Set environment variables:
+   - `NEXT_PUBLIC_BACKEND_URL`
+4. Deploy
+
+### Railway/Render (Backend)
+
+1. Connect GitHub repository
+2. Set build command: `cd Webapp/server && npm install`
+3. Set start command: `cd Webapp/server && npm start`
+4. Add environment variables from `.env.example`
+5. Deploy
+
+## 🔐 Environment Variables
+
+### Frontend (.env.local)
+```env
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5001
+```
+
+### Backend (.env)
+```env
+PORT=5001
+NODE_ENV=production
+GROQ_API_KEY=your_groq_api_key
+JWT_SECRET=your_secret_key
+FRONTEND_URL=https://yourdomain.com
+```
+
+## 📁 Project Structure
+
+```
+CarrerQuest/
+├── Webapp/
+│   ├── src/
+│   │   ├── app/          # Next.js app router pages
+│   │   ├── components/   # React components
+│   │   ├── contexts/     # React contexts (Auth, etc.)
+│   │   └── lib/          # Utilities
+│   ├── server/
+│   │   ├── controllers/  # Route controllers
+│   │   ├── routes/       # API routes
+│   │   ├── middleware/   # Auth, validation, etc.
+│   │   └── db/           # JSON database files
+│   └── public/           # Static assets
+├── ML/                   # Machine learning models
+└── Docs/                 # Documentation
+```
+
+## 🧪 Testing
+
+```bash
+# Frontend
+cd Webapp
+npm run lint
+
+# Backend
+cd Webapp/server
+npm test  # (when tests are added)
+```
+
+## 🔒 Security Features
+
+- JWT authentication with refresh tokens
+- Rate limiting on API endpoints
+- CORS protection
+- Helmet.js security headers
+- Password hashing with bcrypt
+- Input validation and sanitization
+- Error boundary handling
+
+## 📝 API Documentation
+
+See `Docs/API.md` for detailed API documentation.
+
+## 🤝 Contributing
+
+See `CONTRIBUTING.md` for contribution guidelines.
+
+## 📄 License
+
+Apache-2.0 License
+
+## 👥 Team
+
+FeedMind Team - Smart India Hackathon 2024
+
+---
+
+Built with ❤️ for students navigating their career journey

@@ -1,20 +1,74 @@
 [
-    {
-      "id": 1,
-      "title": "Exploring Machine Learning Careers",
-      "content": "Machine learning offers a wide range of opportunities in AI, data analysis, and automation.",
-      "category": "Technology"
-    },
-    {
-      "id": 2,
-      "title": "The Future of Web Development",
-      "content": "Web development is evolving rapidly with frameworks like React, Angular, and Vue.",
-      "category": "Technology"
-    },
-    {
-      "id": 3,
-      "title": "Cybersecurity as a Career Path",
-      "content": "Learn about the importance of cybersecurity in protecting sensitive information.",
-      "category": "Technology"
-    }
-  ]
+  {
+    "id": 1,
+    "title": "Software Engineering",
+    "content": "Software Engineering involves developing and maintaining software applications. It requires strong programming skills, problem-solving abilities, and knowledge of software development methodologies. Career paths include frontend, backend, and full-stack development. Average salaries range from $80K-$150K depending on experience and location.",
+    "category": "Technology"
+  },
+  {
+    "id": 2,
+    "title": "Data Science",
+    "content": "Data Science is about analyzing and interpreting complex data to help organizations make informed decisions. It involves skills in statistics, programming (Python/R), machine learning, and data visualization. Data scientists are in high demand across industries with salaries ranging from $90K-$160K.",
+    "category": "Data"
+  },
+  {
+    "id": 3,
+    "title": "UX/UI Design",
+    "content": "UX/UI Design focuses on creating intuitive, user-friendly interfaces and experiences. It combines psychology, design thinking, and technical skills to build products users love. Designers use tools like Figma, Sketch, and Adobe XD. Entry-level salaries start around $60K, with senior roles reaching $130K+.",
+    "category": "Design"
+  },
+  {
+    "id": 4,
+    "title": "Cybersecurity",
+    "content": "Cybersecurity professionals protect organizations from digital threats. This field requires knowledge of security protocols, ethical hacking, risk assessment, and incident response. With increasing cyber threats, demand is growing rapidly. Salaries range from $85K-$170K with certifications like CISSP highly valued.",
+    "category": "Security"
+  },
+  {
+    "id": 5,
+    "title": "Mobile Development",
+    "content": "Mobile Development involves creating applications for smartphones and tablets. Specializations include iOS (Swift), Android (Kotlin), and cross-platform development (React Native, Flutter). The mobile app market continues to grow, with developers earning $75K-$140K based on expertise.",
+    "category": "Mobile"
+  },
+  {
+    "id": 6,
+    "title": "Machine Learning Engineer",
+    "content": "Machine Learning Engineers develop AI systems that can learn and improve from experience. This role combines software engineering with data science and requires strong mathematical foundations. ML Engineers are among the highest-paid tech roles, with salaries from $100K-$200K.",
+    "category": "AI"
+  },
+  {
+    "id": 7,
+    "title": "Cloud Architecture",
+    "content": "Cloud Architects design and oversee cloud computing strategies for organizations. They work with platforms like AWS, Azure, and Google Cloud to create scalable, secure infrastructure. This role requires both technical depth and business acumen, with salaries ranging from $120K-$180K.",
+    "category": "Technology"
+  },
+  {
+    "id": 8,
+    "title": "Product Management",
+    "content": "Product Managers define the vision and strategy for products, working at the intersection of business, technology, and design. They prioritize features, gather user feedback, and coordinate cross-functional teams. PMs earn $90K-$170K and often transition from engineering or design roles.",
+    "category": "Business"
+  },
+  {
+    "id": 9,
+    "title": "DevOps Engineering",
+    "content": "DevOps Engineers bridge development and operations, focusing on CI/CD pipelines, infrastructure automation, and system reliability. They use tools like Docker, Kubernetes, Jenkins, and Terraform. Strong scripting skills are essential. Salaries range from $85K-$160K.",
+    "category": "Technology"
+  },
+  {
+    "id": 10,
+    "title": "Blockchain Development",
+    "content": "Blockchain Developers create decentralized applications and smart contracts. They work with technologies like Ethereum, Solidity, and Web3. While the field has volatility, skilled blockchain developers remain in demand with salaries from $90K-$180K.",
+    "category": "Technology"
+  },
+  {
+    "id": 11,
+    "title": "Healthcare Informatics",
+    "content": "Healthcare Informatics professionals bridge healthcare and technology, managing health information systems and ensuring data quality. They need knowledge of EHR systems, HIPAA compliance, and clinical workflows. Salaries range from $70K-$130K.",
+    "category": "Healthcare"
+  },
+  {
+    "id": 12,
+    "title": "Digital Marketing",
+    "content": "Digital Marketers plan and execute online marketing campaigns across channels like SEO, SEM, social media, and email. They analyze data to optimize campaigns and drive ROI. Entry-level positions start around $45K, with directors earning $120K+.",
+    "category": "Business"
+  }
+]

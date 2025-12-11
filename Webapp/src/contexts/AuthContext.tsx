@@ -260,7 +260,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       // Update local state and storage
-      const updatedUser = { ...state.user!, profile: { ...state.user?.profile, ...data } };
+      const currentProfile = state.user?.profile || {
+        skills: [],
+        interests: [],
+        education: null,
+        quizCompleted: false,
+        quizResults: null,
+      };
+      const updatedProfile = { ...currentProfile, ...data };
+      const updatedUser: User = { 
+        ...state.user!, 
+        profile: updatedProfile 
+      };
       localStorage.setItem(USER_KEY, JSON.stringify(updatedUser));
       
       setState(prev => ({

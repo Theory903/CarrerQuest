@@ -93,7 +93,7 @@ const PrivacyPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-4">
-              At CareerQuest, we're committed to protecting your personal information 
+              At CareerQuest, we&apos;re committed to protecting your personal information 
               and being transparent about how we use it.
             </p>
             <p className="text-slate-500 text-sm">
@@ -161,7 +161,7 @@ const PrivacyPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-white mb-4">Questions About Privacy?</h2>
             <p className="text-slate-400 mb-6">
               If you have any questions or concerns about our privacy practices, 
-              please don't hesitate to reach out.
+              please don&apos;t hesitate to reach out.
             </p>
             <a href="/contact" className="btn-primary inline-flex">
               Contact Our Privacy Team

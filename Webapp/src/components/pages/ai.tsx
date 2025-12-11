@@ -6,11 +6,9 @@ import {
   Mic, 
   RotateCcw, 
   Loader, 
-  Bot, 
   User, 
   Sparkles, 
   Brain,
-  BookOpen,
   Briefcase,
   GraduationCap,
   AlertCircle

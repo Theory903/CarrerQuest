@@ -17,13 +17,6 @@ const fallbackGoals: Goal[] = [
   { name: "Attend Industry Webinar", progress: 0 },
 ];
 
-const getProgressColor = (progress: number): string => {
-  if (progress === 100) return "bg-emerald-500";
-  if (progress >= 70) return "bg-primary-500";
-  if (progress >= 40) return "bg-amber-500";
-  return "bg-slate-600";
-};
-
 const getProgressGradient = (progress: number): string => {
   if (progress === 100) return "from-emerald-500 to-emerald-400";
   if (progress >= 70) return "from-primary-500 to-primary-400";

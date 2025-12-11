@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
   Legend,
   CartesianGrid,
-  Cell,
 } from "recharts";
 import { RefreshCw, AlertCircle, Award } from "lucide-react";
 

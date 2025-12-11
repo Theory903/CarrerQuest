@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { RefreshCw, AlertCircle, Users, Trophy, BookOpen, Lightbulb } from "lucide-react";
 
 interface ParticipationData {

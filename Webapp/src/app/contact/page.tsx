@@ -7,7 +7,6 @@ import {
   Mail, 
   MessageSquare, 
   MapPin, 
-  Phone,
   Send,
   CheckCircle2,
   Github,
@@ -94,7 +93,7 @@ const ContactPage: React.FC = () => {
               Get in Touch
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              We'd Love to{' '}
+              We&apos;d Love to{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
                 Hear From You
               </span>
@@ -140,7 +139,7 @@ const ContactPage: React.FC = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
                   <p className="text-slate-400 mb-6">
-                    Thank you for reaching out. We'll get back to you within 24 hours.
+                    Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}

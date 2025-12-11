@@ -302,7 +302,7 @@ const Home: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                <p className="text-slate-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                <p className="text-slate-300 mb-6 leading-relaxed">&quot;{testimonial.quote}&quot;</p>
                 <div>
                   <p className="text-white font-semibold">{testimonial.author}</p>
                   <p className="text-slate-500 text-sm">{testimonial.role}</p>

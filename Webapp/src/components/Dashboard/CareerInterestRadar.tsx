@@ -71,14 +71,12 @@ const LoadingSkeleton: React.FC = () => (
 const CareerInterestRadar: React.FC = () => {
   const [data, setData] = useState<InterestData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [isOffline, setIsOffline] = useState<boolean>(false);
 
   const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5001"}/api/interests`;
 
   const fetchData = async () => {
     setIsLoading(true);
-    setError(null);
     
     try {
       const response = await fetch(apiUrl);
@@ -90,7 +88,6 @@ const CareerInterestRadar: React.FC = () => {
       console.error("Failed to fetch data:", err);
       setData(fallbackData);
       setIsOffline(true);
-      setError("Using cached data");
     } finally {
       setIsLoading(false);
     }

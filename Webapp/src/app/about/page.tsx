@@ -5,7 +5,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { 
   Target, 
-  Users, 
   Lightbulb, 
   Heart,
   Rocket,

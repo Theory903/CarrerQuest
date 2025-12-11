@@ -21,8 +21,7 @@ import {
   RefreshCw,
   Download,
   Share2,
-  ChevronDown,
-  ChevronUp
+  ChevronDown
 } from 'lucide-react';
 
 interface QuizOption {
@@ -249,7 +248,7 @@ const PersonalityQuiz: React.FC = () => {
         setSessionId(data.sessionId);
         setIsLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setError('Failed to reload quiz');
         setIsLoading(false);
       });

@@ -13,7 +13,7 @@ interface User {
     interests: string[];
     education: string | null;
     quizCompleted: boolean;
-    quizResults: any | null;
+    quizResults: Record<string, unknown> | null;
   };
   createdAt?: string;
 }

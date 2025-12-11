@@ -103,11 +103,11 @@ const AIChatBotInterface: React.FC = () => {
       };
       setMessages((prev) => [...prev, aiMessage]);
       
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching AI response:", err);
       
       let errorMessage = "I'm having trouble connecting right now.";
-      if (err.message === 'rate_limit') {
+      if (err instanceof Error && err.message === 'rate_limit') {
         errorMessage = "I'm receiving too many requests. Please wait a moment and try again.";
       }
       

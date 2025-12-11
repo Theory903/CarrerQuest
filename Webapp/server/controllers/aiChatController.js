@@ -4,8 +4,12 @@ import Groq from 'groq-sdk';
 let groq = null;
 const getGroqClient = () => {
   if (!groq) {
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      throw new Error('GROQ_API_KEY environment variable is required');
+    }
     groq = new Groq({
-      apiKey: process.env.GROQ_API_KEY || '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',
+      apiKey: apiKey,
     });
   }
   return groq;
@@ -13,6 +17,8 @@ const getGroqClient = () => {
 
 // In-memory conversation storage (use Redis in production)
 const conversations = new Map();
+// Track conversation timestamps separately to handle custom IDs
+const conversationTimestamps = new Map();
 
 const SYSTEM_PROMPT = `You are CareerQuest AI Mentor - an expert career counselor with deep knowledge across industries, job markets, and career development strategies.
 
@@ -36,6 +42,28 @@ Guidelines:
 
 Remember: You're helping shape someone's future career. Be thoughtful and thorough.`;
 
+// Clean up old conversations (older than 1 hour)
+const cleanupOldConversations = () => {
+  const oneHourAgo = Date.now() - 3600000;
+  const keysToDelete = [];
+  
+  for (const [conversationId, timestamp] of conversationTimestamps.entries()) {
+    if (timestamp < oneHourAgo) {
+      keysToDelete.push(conversationId);
+    }
+  }
+  
+  // Delete conversations and their timestamps
+  for (const key of keysToDelete) {
+    conversations.delete(key);
+    conversationTimestamps.delete(key);
+  }
+  
+  if (keysToDelete.length > 0) {
+    console.log(`Cleaned up ${keysToDelete.length} old conversation(s)`);
+  }
+};
+
 // Main chat endpoint
 export const getAIResponse = async (req, res) => {
   try {
@@ -48,6 +76,9 @@ export const getAIResponse = async (req, res) => {
     // Get or create conversation history
     const convId = conversationId || `conv_${Date.now()}`;
     let history = conversations.get(convId) || [];
+    
+    // Track timestamp for this conversation (update on each interaction)
+    conversationTimestamps.set(convId, Date.now());
 
     // Build messages array with history
     const messages = [
@@ -78,13 +109,13 @@ export const getAIResponse = async (req, res) => {
       { role: 'assistant', content: aiResponse }
     );
     conversations.set(convId, history);
+    
+    // Update timestamp
+    conversationTimestamps.set(convId, Date.now());
 
-    // Clean up old conversations (older than 1 hour)
-    const oneHourAgo = Date.now() - 3600000;
-    for (const [key, value] of conversations.entries()) {
-      if (parseInt(key.split('_')[1]) < oneHourAgo) {
-        conversations.delete(key);
-      }
+    // Clean up old conversations periodically (every 10 requests to avoid overhead)
+    if (Math.random() < 0.1) {
+      cleanupOldConversations();
     }
 
     res.json({
@@ -101,6 +132,14 @@ export const getAIResponse = async (req, res) => {
       return res.status(429).json({ 
         error: 'AI service is busy. Please try again in a moment.',
         fallback: true 
+      });
+    }
+    
+    // Handle missing API key error
+    if (error.message?.includes('GROQ_API_KEY')) {
+      return res.status(500).json({ 
+        error: 'AI service configuration error. Please contact support.',
+        fallback: true
       });
     }
     
@@ -147,25 +186,42 @@ Format your response clearly with headers and bullet points.`;
       max_tokens: 2000,
     });
 
+    // Provide fallback message if API response is missing content (Bug 3 fix)
+    const analysis = completion.choices[0]?.message?.content || 
+      'I apologize, but I couldn\'t generate a career analysis at this time. Please try again or contact support if the issue persists.';
+
     res.json({
-      analysis: completion.choices[0]?.message?.content,
+      analysis: analysis,
       profile: { skills, interests, education, experience, goals }
     });
 
   } catch (error) {
     console.error('Career Analysis Error:', error.message);
-    res.status(500).json({ error: 'Failed to analyze career profile' });
+    
+    // Handle missing API key error
+    if (error.message?.includes('GROQ_API_KEY')) {
+      return res.status(500).json({ 
+        error: 'AI service configuration error. Please contact support.',
+        analysis: 'Service temporarily unavailable. Please try again later.'
+      });
+    }
+    
+    res.status(500).json({ 
+      error: 'Failed to analyze career profile',
+      analysis: 'Unable to generate analysis at this time. Please try again later.'
+    });
   }
 };
 
 // Clear conversation
 export const clearConversation = (req, res) => {
   const { conversationId } = req.body;
-  if (conversationId && conversations.has(conversationId)) {
+  if (conversationId) {
     conversations.delete(conversationId);
+    conversationTimestamps.delete(conversationId);
   }
   res.json({ success: true, message: 'Conversation cleared' });
 };
 
-export default { getAIResponse, analyzeCareer, clearConversation };
-
+const aiChatController = { getAIResponse, analyzeCareer, clearConversation };
+export default aiChatController;

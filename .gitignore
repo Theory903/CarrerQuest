@@ -1,155 +1,63 @@
-# =========================
 # Dependencies
-# =========================
 node_modules/
-.pnp
+/.pnp
 .pnp.js
-.yarn/install-state.gz
 
-# =========================
-# Build & Output
-# =========================
-.next/
-out/
-build/
-dist/
-coverage/
+# Testing
+/coverage
+.nyc_output
 
-# =========================
-# Environment Files
-# =========================
-.env
-.env.*
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-!.env.example
+# Production
+/build
+/dist
+/.next/
+/out/
 
-# =========================
-# Debug & Logs
-# =========================
+# Misc
+.DS_Store
+*.pem
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-*.log
-logs/
+.pnpm-debug.log*
 
-# =========================
-# OS Files
-# =========================
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
+# Local env files (all locations)
+.env
+.env*.local
+.env.production
+.env.development
+**/.env
+**/.env.local
+**/.env.production
+**/.env.development
+Webapp/.env
+Webapp/server/.env
 
-# =========================
-# IDE & Editors
-# =========================
-# VS Code
-.vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Vercel
+.vercel
 
-# JetBrains (WebStorm, PyCharm, IntelliJ)
-.idea/
-
-# Zed
-.zed/
-
-# Vim
-*.swp
-*.swo
-*.swn
-*~
-
-# Emacs
-*~
-\#*\#
-.#*
-
-# Sublime Text
-*.sublime-workspace
-*.sublime-project
-
-# Cursor
-.cursor/
-
-# =========================
-# Python (for ML folder)
-# =========================
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-*.egg
-*.egg-info/
-.eggs/
-*.manifest
-*.spec
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Virtual environments
-venv/
-ENV/
-env/
-.venv/
-
-# Jupyter Notebooks
-.ipynb_checkpoints/
-
-# PyInstaller
-build/
-dist/
-
-# mypy
-.mypy_cache/
-
-# pytest
-.pytest_cache/
-
-# =========================
 # TypeScript
-# =========================
 *.tsbuildinfo
 next-env.d.ts
 
-# =========================
-# Testing
-# =========================
-coverage/
-.nyc_output/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# =========================
-# Deployment
-# =========================
-.vercel/
-.netlify/
+# OS
+Thumbs.db
 
-# =========================
-# Misc
-# =========================
-*.pem
-*.key
-*.cert
-*.crt
+# Docker
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite
 
 # Temporary files
 tmp/
 temp/
-*.tmp
-*.temp
-
-# Package manager locks (optional - uncomment if you want to ignore)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml

@@ -105,7 +105,8 @@ const AIChatBotInterface: React.FC = () => {
       console.error("Error fetching AI response:", err);
       
       let errorMessage = "I'm having trouble connecting right now.";
-      if (err instanceof Error && err.message === 'rate_limit') {
+      const isRateLimit = err instanceof Error && err.message === 'rate_limit';
+      if (isRateLimit) {
         errorMessage = "I'm receiving too many requests. Please wait a moment and try again.";
       }
       
@@ -116,7 +117,7 @@ const AIChatBotInterface: React.FC = () => {
         timestamp: new Date()
       };
       setMessages((prev) => [...prev, fallbackMessage]);
-      setError(err.message === 'rate_limit' ? "Rate limited - please wait" : "Offline mode");
+      setError(isRateLimit ? "Rate limited - please wait" : "Offline mode");
     } finally {
       setIsLoading(false);
     }

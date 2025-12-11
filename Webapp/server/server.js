@@ -51,10 +51,13 @@ const aiLimiter = rateLimit({
 // CORS configuration
 const allowedOrigins = NODE_ENV === 'production'
   ? [
-      process.env.FRONTEND_URL || 'https://careerquest.vercel.app',
+      process.env.FRONTEND_URL,
+      'https://carrer-quest.vercel.app',
+      'https://carrer-quest-git-main-theory903s-projects.vercel.app',
+      'https://*.vercel.app',
       'https://careerquest.com',
       'https://www.careerquest.com',
-    ]
+    ].filter(Boolean) // Remove undefined values
   : [
       'http://localhost:3000',
       'http://localhost:3001',
@@ -67,10 +70,24 @@ app.use(cors({
     // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.includes(origin) || NODE_ENV !== 'production') {
-      callback(null, true);
-    } else {
+    // In production, check if origin matches allowed patterns
+    if (NODE_ENV === 'production') {
+      // Check exact matches
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      // Check wildcard patterns (for Vercel preview deployments)
+      if (origin.includes('.vercel.app') && allowedOrigins.includes('https://*.vercel.app')) {
+        return callback(null, true);
+      }
+      // Check if origin starts with FRONTEND_URL
+      if (process.env.FRONTEND_URL && origin.startsWith(process.env.FRONTEND_URL)) {
+        return callback(null, true);
+      }
       callback(new Error('Not allowed by CORS'));
+    } else {
+      // In development, allow all localhost origins
+      callback(null, true);
     }
   },
   credentials: true,
@@ -145,17 +162,30 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Get server URL for logging
+const getServerUrl = () => {
+  if (NODE_ENV === 'production') {
+    return process.env.BACKEND_URL || process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL || process.env.BACKEND_URL}`
+      : `http://localhost:${PORT}`;
+  }
+  return `http://localhost:${PORT}`;
+};
+
+const SERVER_URL = getServerUrl();
+
 // Graceful Shutdown
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`
 🚀 CareerQuest Server v2.0.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 Server: http://localhost:${PORT}
-🔧 Health: http://localhost:${PORT}/api/health
-🤖 AI Chat: http://localhost:${PORT}/api/chat
-📊 Quiz: http://localhost:${PORT}/api/quiz
-📝 Reports: http://localhost:${PORT}/api/reports
+📍 Server: ${SERVER_URL}
+🔧 Health: ${SERVER_URL}/api/health
+🤖 AI Chat: ${SERVER_URL}/api/chat
+📊 Quiz: ${SERVER_URL}/api/quiz
+📝 Reports: ${SERVER_URL}/api/reports
 🌍 Environment: ${NODE_ENV}
+🌐 Frontend: ${process.env.FRONTEND_URL || 'Not configured'}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   `);
 });
